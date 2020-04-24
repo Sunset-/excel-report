@@ -1,6 +1,6 @@
 # dag-component-devtools
 
-> DAG组件开发工具，模拟组件管理服务下发配置及资源，模拟标准采集服务接收数据预览，用以帮助本地开发组件。
+> Excel 填写生成excel报表。
 
 #### Build Setup
 
