@@ -32,7 +32,10 @@ export default {
     if (!!keyword) {
       query.$where = function() {
         var self = this;
-        return Sunset.Dates.format(self.updateTime).indexOf(keyword) >= 0;
+        if(self.gzrrq){
+          return self.gzrrq.indexOf(keyword) >= 0;
+        }
+        return false;
       };
     }
     return $db.find(MODEL_NAME, query, { createTime: -1 });

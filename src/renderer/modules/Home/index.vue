@@ -18,65 +18,24 @@ import HomeComponents from "./components";
 import Store from "./store.js";
 import "./export-excel";
 
-var data = {
-    title: "生产日报表",
-    zbld: "张三 李四",
-    date: "2020年3月29日",
-    cxl: {
-        ym_day: 11886,
-        ym_month: 48984,
-        rxl_day: 11316,
-        rxl_month: 47612,
-        jm_day: 12321,
-        jm_month: 54121,
-        shm_day: 31233,
-        shm_month: 123213
-    },
-    xs: {
-        ym_day: 11886,
-        ym_month: 48984,
-        ym_kc: 3123,
-        shm_day: 31233,
-        shm_month: 123213,
-        shm_kc: 3123,
-        mjm_day: 31233,
-        mjm_month: 123213,
-        mjm_kc: 3123,
-        zm_day: 31233,
-        zm_month: 123213,
-        sbk_day: 31233,
-        sbk_month: 123213,
-        dk_day: 31233,
-        dk_month: 123213,
-        dmsbkdk_kc: 3123,
+function toNum(v) {
+    if (!v) {
+        return 0;
+    }
+    var nv = +v;
+    if (isNaN(nv)) {
+        return 0;
+    }
+    return nv;
+}
 
-        zm_kc: 0,
-        total_day: 0,
-        total_month: 0,
-        total_kc: 0
-    },
-    zcd: {
-        title: "当日胜场：312312312",
-        desc: "当日推进让微软微软"
-    },
-    scyx: [
-        {
-            title: "werwerwerwer",
-            person: "rwerwerwer",
-            result: "qwewqeqwewqeqw"
-        },
-        {
-            title: "werwerwerwer",
-            person: "rwerwerwer",
-            result: "qwewqeqwewqeqw"
-        },
-        {
-            title: "werwerwerwer",
-            person: "rwerwerwer",
-            result: "qwewqeqwewqeqw"
-        }
-    ]
-};
+function fixed(v, d) {
+    var v = +v;
+    if (isNaN(v)) {
+        v = 0;
+    }
+    return v.toFixed(d);
+}
 
 export default {
     components: {
@@ -117,515 +76,666 @@ export default {
                         icon: "xui-icon xui-icon-send",
                         color: "primary",
                         operate: () => {
-                            $excel.export(data);
+                            this.export();
                         }
                     }
                 ]
             },
             formOptions: {
                 cols: 3,
+                fillEmpty: "",
                 fields: [
                     {
-                        label: "日期",
-                        name: "date",
-                        widget: "datetime",
-                        placeholder: "请选择日期"
+                        label: "报表名称",
+                        name: "title",
+                        widget: "input",
+                        style: "width:630px;",
+                        placeholder: "请输入报表名称"
                     },
                     {
-                        label: "值班领导",
-                        name: "ld",
+                        label: "工作日日期",
+                        name: "gzrrq",
+                        widget: "datetime",
+                        newline: true,
+                        placeholder: "请选择工作日日期",
+                        valueFormat: "yyyy-MM-dd"
+                    },
+                    {
+                        label: "工作日天气",
+                        name: "gzrtq",
                         widget: "input",
+                        placeholder: "请输入工作日天气"
+                    },
+                    {
+                        label: "工作日值班领导",
+                        name: "gzrzbld",
+                        widget: "input",
+                        newline: true,
                         placeholder: "请输入值班领导"
                     },
                     {
-                        label: "天气",
-                        name: "title",
+                        label: "填表日日期",
+                        name: "tbrrq",
+                        widget: "datetime",
+                        newline: true,
+                        placeholder: "请选择填表日日期",
+                        valueFormat: "yyyy-MM-dd"
+                    },
+                    {
+                        label: "填表日天气",
+                        name: "tbrtq",
                         widget: "input",
+                        placeholder: "请输入填表日天气"
+                    },
+                    {
+                        label: "填表日值班领导",
+                        name: "tbrzbld",
+                        widget: "input",
+                        newline: true,
                         placeholder: "请输入值班领导"
                     },
                     {
                         group: "产销量",
                         label: "原煤 - 日产",
-                        name: "title",
+                        name: "ym_rc",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入原煤日产量"
                     },
                     {
                         label: "原煤 - 月累计",
-                        name: "title",
+                        name: "ym_ylj",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入原煤月累计"
                     },
                     {
                         label: "入选量 - 日产",
-                        name: "title",
+                        name: "rxl_rc",
                         widget: "input",
                         newline: true,
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入选量日产量"
                     },
                     {
                         label: "入选量 - 月累计",
-                        name: "title",
+                        name: "rxl_ylj",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入选量月累计"
                     },
                     {
                         label: "精煤 - 日产",
-                        name: "title",
+                        name: "jm_rc",
                         widget: "input",
                         newline: true,
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入精煤日产"
                     },
                     {
                         label: "精煤 - 月累计",
-                        name: "title",
+                        name: "jm_ylj",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入精煤月累计"
                     },
                     {
                         label: "筛混煤 - 日产",
-                        name: "title",
+                        name: "shm_rc",
                         widget: "input",
                         newline: true,
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入筛混煤日产"
                     },
                     {
                         label: "筛混煤 - 月累计",
-                        name: "title",
+                        name: "shm_ylj",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入筛混煤月累计"
                     },
                     {
                         group: "销售",
                         label: "原煤 - 日销量",
-                        name: "title",
+                        name: "ym_rxl",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入原煤日销量"
                     },
                     {
                         label: "原煤 - 月销量",
-                        name: "title",
+                        name: "ym_yxl",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入原煤月销量"
                     },
                     {
                         label: "原煤 - 品种煤库存",
-                        name: "title",
+                        name: "ym_kc",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入原煤库存"
                     },
                     {
                         label: "筛混煤 - 日销量",
-                        name: "title",
+                        name: "shm_rxl",
                         widget: "input",
                         newline: true,
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入筛混煤日销量"
                     },
                     {
                         label: "筛混煤 - 月销量",
-                        name: "title",
+                        name: "shm_yxl",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入筛混煤月销量"
                     },
                     {
                         label: "筛混煤 - 品种煤库存",
-                        name: "title",
+                        name: "shm_kc",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入筛混煤库存"
                     },
                     {
                         label: "末精煤 - 日销量",
-                        name: "title",
+                        name: "mjm_rxl",
                         widget: "input",
                         newline: true,
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入末精煤日销量"
                     },
                     {
                         label: "末精煤 - 月销量",
-                        name: "title",
+                        name: "mjm_yxl",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入末精煤月销量"
                     },
                     {
                         label: "末精煤 - 品种煤库存",
-                        name: "title",
+                        name: "mjm_kc",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入末精煤库存"
                     },
                     {
                         label: "籽煤 - 日销量",
-                        name: "title",
+                        name: "zm_rxl",
                         widget: "input",
                         newline: true,
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入籽煤日销量"
                     },
                     {
                         label: "籽煤 - 月销量",
-                        name: "title",
+                        name: "zm_yxl",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入籽煤月销量"
                     },
                     {
                         label: "三八块煤 - 日销量",
-                        name: "title",
+                        name: "sbkm_rxl",
                         widget: "input",
                         newline: true,
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入三八块煤日销量"
                     },
                     {
                         label: "三八块煤 - 月销量",
-                        name: "title",
+                        name: "sbkm_yxl",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入三八块煤月销量"
                     },
                     {
                         label: "大块 - 日销量",
-                        name: "title",
+                        name: "dk_rxl",
                         widget: "input",
                         newline: true,
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入大块日销量"
                     },
                     {
                         label: "大块 - 月销量",
-                        name: "title",
+                        name: "dk_yxl",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入大块月销量"
                     },
                     {
                         label: "籽煤、三八块、大块 - 库存",
-                        name: "title",
+                        name: "zm_sbkm_dk_kc",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入籽煤、三八块、大块库存"
                     },
                     {
                         label: "合计 - 日销量",
-                        name: "title",
+                        name: "total_rxl",
                         widget: "input",
                         newline: true,
-                        placeholder: "请输入值班领导"
+                        readonly: true,
+                        clearable: false,
+                        placeholder: "自动计算",
+                        watch: [
+                            "ym_rxl,shm_rxl,mjm_rxl,zm_rxl,sbkm_rxl,dk_rxl",
+                            model => {
+                                model.total_rxl = (
+                                    +(model.ym_rxl || 0) +
+                                    +(model.shm_rxl || 0) +
+                                    +(model.mjm_rxl || 0) +
+                                    +(model.zm_rxl || 0) +
+                                    +(model.sbkm_rxl || 0) +
+                                    +(model.dk_rxl || 0)
+                                ).toFixed(2);
+                            }
+                        ]
                     },
                     {
                         label: "合计 - 月销量",
-                        name: "title",
+                        name: "total_yxl",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        readonly: true,
+                        clearable: false,
+                        placeholder: "自动计算",
+                        watch: [
+                            "ym_yxl,shm_yxl,mjm_yxl,zm_yxl,sbkm_yxl,dk_yxl",
+                            model => {
+                                model.total_yxl = (
+                                    +(model.ym_yxl || 0) +
+                                    +(model.shm_yxl || 0) +
+                                    +(model.mjm_yxl || 0) +
+                                    +(model.zm_yxl || 0) +
+                                    +(model.sbkm_yxl || 0) +
+                                    +(model.dk_yxl || 0)
+                                ).toFixed(2);
+                            }
+                        ]
                     },
                     {
                         label: "合计 - 库存",
-                        name: "title",
+                        name: "total_kc",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        readonly: true,
+                        clearable: false,
+                        placeholder: "自动计算",
+                        watch: [
+                            "ym_kc,shm_kc,mjm_kc,zm_sbkm_dk_kc",
+                            model => {
+                                model.total_kc = (
+                                    +(model.ym_kc || 0) +
+                                    +(model.shm_kc || 0) +
+                                    +(model.mjm_kc || 0) +
+                                    +(model.zm_sbkm_dk_kc || 0)
+                                ).toFixed(2);
+                            }
+                        ]
                     },
                     {
                         group: "综采队 - 1012001工作面",
                         label: "当日生产",
-                        name: "title",
+                        name: "zcd_work",
                         widget: "input",
                         style: "width:630px;",
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入当日生产"
                     },
                     {
                         label: "详情",
-                        name: "title",
+                        name: "zcd_desc",
                         widget: "input",
                         monopolize: true,
                         style: "width:630px;",
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入工作详情"
                     },
                     {
                         group: "掘一队 - 1032101工作面回风巷",
                         label: "当日掘进",
-                        name: "title",
+                        name: "j1d_1032101hfx_rjj",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        manner: "juejin",
+                        clearable: false,
+                        placeholder: "请输入米数"
                     },
                     {
                         label: "月累计",
-                        name: "title",
+                        name: "j1d_1032101hfx_yjj",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        manner: "juejinylj",
+                        clearable: false,
+                        placeholder: "请输入米数"
                     },
                     {
                         group:
                             "<span style='display:inline-block;width:42px;'></span> - 1032102工作面回风联巷",
                         label: "当日掘进",
-                        name: "title",
+                        name: "j1d_1032102hflx_rjj",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        manner: "juejin",
+                        clearable: false,
+                        placeholder: "请输入米数"
                     },
                     {
                         label: "月累计",
-                        name: "title",
+                        name: "j1d_1032102hflx_yjj",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        manner: "juejinylj",
+                        clearable: false,
+                        placeholder: "请输入米数"
                     },
                     {
-                        group: "掘三队 - 1012006浮云绕道",
+                        group: "掘三队 - 1012006辅运绕道",
                         label: "当日掘进",
-                        name: "title",
+                        name: "j3d_1012006fyrd_rjj",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        manner: "juejin",
+                        clearable: false,
+                        placeholder: "请输入米数"
                     },
                     {
                         label: "月累计",
-                        name: "title",
+                        name: "j3d_1012006fyrd_yjj",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        manner: "juejinylj",
+                        clearable: false,
+                        placeholder: "请输入米数"
                     },
                     {
                         group:
-                            "<span style='display:inline-block;width:42px;'></span> - 1032102工作面回风联巷",
+                            "<span style='display:inline-block;width:42px;'></span> - 1012006回风道",
                         label: "当日掘进",
-                        name: "title",
+                        name: "j3d_1012006hfd_rjj",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        manner: "juejin",
+                        clearable: false,
+                        placeholder: "请输入米数"
                     },
                     {
                         label: "月累计",
-                        name: "title",
+                        name: "j3d_1012006hfd_yjj",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        manner: "juejinylj",
+                        clearable: false,
+                        placeholder: "请输入米数"
                     },
                     {
-                        group: "重庆中环 - 1012006浮云绕道",
+                        group: "重庆中环 - 2-1煤辅运联络巷",
                         label: "当日掘进",
-                        name: "title",
+                        name: "cqzh_21mfyllx_rjj",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        manner: "juejin",
+                        clearable: false,
+                        placeholder: "请输入米数"
                     },
                     {
                         label: "月累计",
-                        name: "title",
+                        name: "cqzh_21mfyllx_yjj",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        manner: "juejinylj",
+                        clearable: false,
+                        placeholder: "请输入米数"
                     },
                     {
                         group:
-                            "<span style='display:inline-block;width:56px;'></span> - 1032102工作面回风联巷",
+                            "<span style='display:inline-block;width:56px;'></span> - 东翼一号回风反掘",
                         label: "当日掘进",
-                        name: "title",
+                        name: "cqzh_dyyhhffj_rjj",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        manner: "juejin",
+                        clearable: false,
+                        placeholder: "请输入米数"
                     },
                     {
                         label: "月累计",
-                        name: "title",
+                        name: "cqzh_dyyhhffj_yjj",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        manner: "juejinylj",
+                        clearable: false,
+                        placeholder: "请输入米数"
                     },
                     {
                         group:
-                            "<span style='display:inline-block;width:56px;'></span> - 1032102工作面回风联巷",
+                            "<span style='display:inline-block;width:56px;'></span> - 1012007回风巷",
                         label: "当日掘进",
-                        name: "title",
+                        name: "cqzh_1012007hfx_rjj",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        manner: "juejin",
+                        clearable: false,
+                        placeholder: "请输入米数"
                     },
                     {
                         label: "月累计",
-                        name: "title",
+                        name: "cqzh_1012007hfx_yjj",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        manner: "juejinylj",
+                        clearable: false,
+                        placeholder: "请输入米数"
                     },
                     {
                         group:
-                            "<span style='display:inline-block;width:56px;'></span> - 1032102工作面回风联巷",
+                            "<span style='display:inline-block;width:56px;'></span> - 东翼一号辅运巷",
                         label: "当日掘进",
-                        name: "title",
+                        name: "cqzh_dyyhfyx_rjj",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        manner: "juejin",
+                        clearable: false,
+                        placeholder: "请输入米数"
                     },
                     {
                         label: "月累计",
-                        name: "title",
+                        name: "cqzh_dyyhfyx_yjj",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        manner: "juejinylj",
+                        clearable: false,
+                        placeholder: "请输入米数"
                     },
                     {
-                        group: "中煤36处 - 1012006浮云绕道",
+                        group: "中煤36处 - 1012007皮带巷",
                         label: "当日掘进",
-                        name: "title",
+                        name: "zm36c_1012007pdx_rjj",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        manner: "juejin",
+                        clearable: false,
+                        placeholder: "请输入米数"
                     },
                     {
                         label: "月累计",
-                        name: "title",
+                        name: "zm36c_1012007pdx_yjj",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        manner: "juejinylj",
+                        clearable: false,
+                        placeholder: "请输入米数"
                     },
                     {
                         group: "合计掘进进尺",
                         label: "当日掘进",
-                        name: "title",
+                        name: "total_rjj",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        manner: "juejin",
+                        clearable: false,
+                        readonly: true,
+                        placeholder: "自动计算",
+                        watch: [
+                            "j1d_1032101hfx_rjj,j1d_1032102hflx_rjj,j3d_1012006fyrd_rjj,j3d_1012006hfd_rjj,cqzh_21mfyllx_rjj,cqzh_dyyhhffj_rjj,cqzh_1012007hfx_rjj,cqzh_dyyhfyx_rjj,zm36c_1012007pdx_rjj",
+                            model => {
+                                model.total_rjj = fixed(
+                                    toNum(model.j1d_1032101hfx_rjj) +
+                                        toNum(model.j1d_1032102hflx_rjj) +
+                                        toNum(model.j3d_1012006fyrd_rjj) +
+                                        toNum(model.j3d_1012006hfd_rjj) +
+                                        toNum(model.cqzh_21mfyllx_rjj) +
+                                        toNum(model.cqzh_dyyhhffj_rjj) +
+                                        toNum(model.cqzh_1012007hfx_rjj) +
+                                        toNum(model.cqzh_dyyhfyx_rjj) +
+                                        toNum(model.zm36c_1012007pdx_rjj),
+                                    1
+                                );
+                            }
+                        ]
                     },
                     {
                         label: "月累计",
-                        name: "title",
+                        name: "total_yjj",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        manner: "juejinylj",
+                        clearable: false,
+                        readonly: true,
+                        placeholder: "自动计算",
+                        watch: [
+                            "j1d_1032101hfx_yjj,j1d_1032102hflx_yjj,j3d_1012006fyrd_yjj,j3d_1012006hfd_yjj,cqzh_21mfyllx_yjj,cqzh_dyyhhffj_yjj,cqzh_1012007hfx_yjj,cqzh_dyyhfyx_yjj,zm36c_1012007pdx_yjj",
+                            model => {
+                                model.total_yjj = fixed(
+                                    toNum(model.j1d_1032101hfx_yjj) +
+                                        toNum(model.j1d_1032102hflx_yjj) +
+                                        toNum(model.j3d_1012006fyrd_yjj) +
+                                        toNum(model.j3d_1012006hfd_yjj) +
+                                        toNum(model.cqzh_21mfyllx_yjj) +
+                                        toNum(model.cqzh_dyyhhffj_yjj) +
+                                        toNum(model.cqzh_1012007hfx_yjj) +
+                                        toNum(model.cqzh_dyyhfyx_yjj) +
+                                        toNum(model.zm36c_1012007pdx_yjj),
+                                    1
+                                );
+                            }
+                        ]
                     },
                     {
                         group: "抽采队",
                         label: "抽采量",
-                        name: "title",
+                        name: "ccd_ccl",
                         widget: "input",
                         style: "width:630px;",
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入抽采量"
                     },
                     {
                         label: "详情",
-                        name: "title",
+                        name: "ccd_desc",
                         widget: "textarea",
                         rows: 4,
                         monopolize: true,
                         style: "width:630px;",
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入抽采详情"
                     },
                     {
                         group: "通风队",
                         label: "通风系统",
-                        name: "title",
+                        name: "tfd_desc",
                         widget: "input",
                         style: "width:630px;",
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入工作详情"
                     },
                     {
                         group: "运输队",
                         label: "运输系统",
-                        name: "title",
+                        name: "ysd_desc",
                         widget: "input",
                         style: "width:630px;",
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入工作详情"
                     },
                     {
                         group: "机电队",
                         label: "提升系统",
-                        name: "title",
+                        name: "jdd_tsxt",
                         widget: "input",
                         style: "width:630px;",
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入工作详情"
                     },
                     {
                         label: "供电系统",
-                        name: "title",
+                        name: "jdd_gdxt",
                         widget: "input",
                         style: "width:630px;",
                         newline: true,
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入工作详情"
                     },
                     {
                         label: "排水系统",
-                        name: "title",
+                        name: "jdd_psxt",
                         widget: "input",
                         style: "width:630px;",
                         newline: true,
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入工作详情"
                     },
                     {
                         group: "准备队",
                         label: "工作详情",
-                        name: "title",
+                        name: "zbd_desc",
                         widget: "textarea",
                         rows: 4,
                         style: "width:630px;",
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入工作详情"
                     },
                     {
                         group: "东翼一号回风立井",
                         label: "工作详情",
-                        name: "title",
+                        name: "dyyhhflj_desc",
                         widget: "textarea",
                         rows: 4,
                         style: "width:630px;",
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入工作详情"
                     },
                     {
                         group: "生产情况1",
                         label: "生产影响",
-                        name: "title",
+                        name: "scqk1_scyx",
                         widget: "textarea",
                         rows: 2,
                         style: "width:630px;",
                         cols: false,
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入生产影响"
                     },
                     {
                         label: "责任人",
-                        name: "title",
+                        name: "scqk1_zrr",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入责任人"
                     },
                     {
                         label: "处理结果",
-                        name: "title",
+                        name: "scqk1_cljg",
                         widget: "textarea",
                         rows: 3,
                         style: "width:630px;",
                         newline: true,
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入处理结果"
                     },
                     {
                         group: "生产情况2",
                         label: "生产影响",
-                        name: "title",
+                        name: "scqk2_scyx",
                         widget: "textarea",
                         rows: 2,
                         style: "width:630px;",
                         cols: false,
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入生产影响"
                     },
                     {
                         label: "责任人",
-                        name: "title",
+                        name: "scqk2_zrr",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入责任人"
                     },
                     {
                         label: "处理结果",
-                        name: "title",
+                        name: "scqk2_cljg",
                         widget: "textarea",
                         rows: 3,
                         style: "width:630px;",
                         newline: true,
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入处理结果"
                     },
                     {
                         group: "生产情况3",
                         label: "生产影响",
-                        name: "title",
+                        name: "scqk3_scyx",
                         widget: "textarea",
                         rows: 2,
                         style: "width:630px;",
                         cols: false,
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入生产影响"
                     },
                     {
                         label: "责任人",
-                        name: "title",
+                        name: "scqk3_zrr",
                         widget: "input",
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入责任人"
                     },
                     {
                         label: "处理结果",
-                        name: "title",
+                        name: "scqk3_cljg",
                         widget: "textarea",
                         rows: 3,
                         style: "width:630px;",
                         newline: true,
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入处理结果"
                     },
                     {
                         group: "备注",
                         label: "备注",
-                        name: "title",
+                        name: "remark",
                         widget: "textarea",
                         rows: 3,
                         style: "width:630px;",
                         newline: true,
-                        placeholder: "请输入值班领导"
+                        placeholder: "请输入备注"
                     }
                 ]
             }
@@ -645,6 +755,11 @@ export default {
                 $tip("保存成功", "success");
                 this.rawModel = JSON.parse(JSON.stringify(data));
                 this.$refs.components.refresh();
+            });
+        },
+        export() {
+            this.$refs.form.getValidateModel().then(res => {
+                $excel.exportReportA(res);
             });
         }
     }
@@ -713,6 +828,65 @@ export default {
                 min-width: 180px;
                 text-align: right;
                 font-size: 14px;
+            }
+        }
+    }
+
+    .xui-input.xui-input-style.xui-input-manner-juejin {
+        .xui-input-inner {
+            padding: 0px 40px 0px 60px;
+        }
+        .xui-input-wrap {
+            & > div {
+                &:before {
+                    content: "掘进";
+                    border-right: 1px solid @color-border;
+                    position: absolute;
+                    left: 0px;
+                    top: 0px;
+                    bottom: 0px;
+                    width: 50px;
+                    text-align: center;
+                }
+                &:after {
+                    content: "米";
+                    border-left: 1px solid @color-border;
+                    position: absolute;
+                    right: 0px;
+                    top: 0px;
+                    bottom: 0px;
+                    width: 30px;
+                    text-align: center;
+                }
+            }
+        }
+    }
+    .xui-input.xui-input-style.xui-input-manner-juejinylj {
+        .xui-input-inner {
+            padding: 0px 40px 0px 60px;
+        }
+        .xui-input-wrap {
+            & > div {
+                &:before {
+                    content: "月累计";
+                    border-right: 1px solid @color-border;
+                    position: absolute;
+                    left: 0px;
+                    top: 0px;
+                    bottom: 0px;
+                    width: 50px;
+                    text-align: center;
+                }
+                &:after {
+                    content: "米";
+                    border-left: 1px solid @color-border;
+                    position: absolute;
+                    right: 0px;
+                    top: 0px;
+                    bottom: 0px;
+                    width: 30px;
+                    text-align: center;
+                }
             }
         }
     }

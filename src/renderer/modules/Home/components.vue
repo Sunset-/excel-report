@@ -2,11 +2,12 @@
     <div>
         <div style="padding:8px 5px 5px 5px;text-align:right;">
             <xui-input v-model="keyword" style="width:105px;float:left;" placeholder="关键字" @change="refresh"></xui-input>
-            <xui-button color="primary" icon="xui-icon xui-icon-add" size="small" @click="editComponent()">新增</xui-button>
+            <xui-dropdown :options="addOptions"></xui-dropdown>
         </div>
         <xui-scroll class="BOX" style="position:absolute;top:45px;text-align:center;">
-            <div :class="['component-item',currentComponent&&(currentComponent._id==item._id)?'active':'']" v-for="item in components" :key="item.name" @click="selectComponent(item)">
-                <p>{{item.updateTime | time}}</p>
+            <div :title="getTitle(item)" :class="['component-item',getTitleClass(item),currentComponent&&(currentComponent._id==item._id)?'active':'']" v-for="item in components" :key="item.name" @click="selectComponent(item)">
+                <p>工<span style="display:inline-block;width:7px;"></span>作<span style="display:inline-block;width:7px;"></span>日：{{item.gzrrq||""}}</p>
+                <p>值班领导：{{item.gzrzbld||""}}</p>
                 <div>更新于：{{item.updateTime | time}}</div>
                 <i class="remove-trigger xui-icon xui-icon-trash" @click="removeComponent(item)"></i>
             </div>
@@ -26,7 +27,39 @@ export default {
         return {
             currentComponent: null,
             components: [],
-            keyword: ""
+            keyword: "",
+            addOptions: {
+                label: "新增",
+                color: "success",
+                icon : "xui-icon xui-icon-add",
+                items: [
+                    {
+                        label: "园子沟煤矿安全生产日报表",
+                        operate: record => {
+                            this.editComponent({
+                                title : "园子沟煤矿安全生产日报表",
+                                createTime: Date.now(),
+                                updateTime: Date.now(),
+                                reportType : 1
+                            });
+                        }
+                    },
+                    {
+                        line: true
+                    },
+                    {
+                        label: "园子沟煤矿安全生产信息日报表",
+                        operate: record => {
+                            this.editComponent({
+                                title : "园子沟煤矿安全生产信息日报表",
+                                createTime: Date.now(),
+                                updateTime: Date.now(),
+                                reportType : 2
+                            });
+                        }
+                    }
+                ]
+            }
         };
     },
     methods: {
@@ -41,27 +74,40 @@ export default {
                 }
             });
         },
-        editComponent() {
-            var model = {
-                createTime: Date.now(),
-                updateTime: Date.now()
-            };
-            Store.save(model).then(res => {
+        editComponent(report) {
+            Store.save(report).then(res => {
                 this.refresh().then(() => {
                     this.selectComponent(res);
                 });
             });
         },
         selectComponent(component) {
-            this.currentComponent = component;
-            this.$emit("selected", component);
+            if (component != this.currentComponent) {
+                this.currentComponent = component;
+                this.$emit("selected", component);
+            }
         },
         removeComponent(model) {
-            $confirm(`确定删除报表：${model.name}?`).then(res => {
-                Store.remove(model).then(res => {
-                    this.refresh();
-                });
+            // $confirm(`确定删除报表：${model.name}?`).then(res => {
+            Store.remove(model).then(res => {
+                this.refresh();
             });
+            // });
+        },
+        getTitle(record) {
+            var title = record.title || "未命名";
+            return title.replace(/ /g, "");
+        },
+        getTitleClass(record) {
+            if (record.reportType==1) {
+                return "success";
+            } else if (record.reportType==2) {
+                return "primary";
+            } else if(record.reportType) {
+                return "warn";
+            }else{
+                return "unknow";
+            }
         }
     },
     mounted() {
@@ -89,9 +135,33 @@ export default {
     &.active {
         background: @color-background-gray;
     }
+    &.unknow {
+        border-top: 4px solid @color-border;
+        &:before {
+            background: @color-border;
+        }
+    }
+    &.success {
+        border-top: 4px solid @color-success;
+        &:before {
+            background: @color-success;
+        }
+    }
+    &.primary {
+        border-top: 4px solid @color-primary;
+        &:before {
+            background: @color-primary;
+        }
+    }
+    &.warn {
+        border-top: 4px solid @color-warning;
+        &:before {
+            background: @color-warning;
+        }
+    }
     &:before {
-        content: "报表";
-        width: 40px;
+        content: attr(title);
+        max-width: 140px;
         height: 20px;
         line-height: 20px;
         position: absolute;
@@ -99,11 +169,15 @@ export default {
         top: -2px;
         color: #fff;
         font-size: 11px;
+        padding: 0px 5px;
         background: @color-success;
         text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
     & > p {
-        padding: 10px 0px;
+        padding: 5px 0px;
         color: @color-title;
         font-size: 14px;
     }
