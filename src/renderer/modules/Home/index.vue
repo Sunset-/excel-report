@@ -852,6 +852,7 @@ export default {
                         label: "原煤 - 日销量",
                         name: "ym_rxl",
                         widget: "input",
+                        newline: true,
                         placeholder: "请输入原煤日销量"
                     },
                     {
@@ -1973,12 +1974,12 @@ export default {
                         ]
                     },
                     {
-                        group: "防冲监测<span class='sub-group'> - 1012001工作面</span>",
+                        group:
+                            "防冲监测<span class='sub-group'> - 1012001工作面</span>",
                         label: "微震事件频次",
                         name: "fcjc_gzm1012001_wzsjpc",
                         widget: "input",
                         clearable: false,
-                        manner: "ccnd",
                         placeholder: "请输入微震事件频次"
                     },
                     {
@@ -1986,7 +1987,6 @@ export default {
                         name: "fcjc_gzm1012001_zdnl",
                         widget: "input",
                         clearable: false,
-                        manner: "ccnd",
                         placeholder: "请输入最大能量,预警值：1.00E+04J"
                     },
                     {
@@ -1994,16 +1994,15 @@ export default {
                         name: "fcjc_gzm1012001_znl",
                         widget: "input",
                         clearable: false,
-                        manner: "ccnd",
                         placeholder: "请输入总能量,预警值：2.50E+04J"
                     },
                     {
-                        group: "<span class='sub-group'> - 应力监测预警值：（浅孔14MPa）（深孔16MPa）</span>",
+                        group:
+                            "<span class='sub-group'> - 应力监测预警值：（浅孔14MPa）（深孔16MPa）</span>",
                         label: "1012001胶带运输巷",
                         name: "fcjc_yljcyjz_1012001jdysx",
                         widget: "input",
                         clearable: false,
-                        manner: "ccnd",
                         placeholder: "请输入应力监测"
                     },
                     {
@@ -2011,35 +2010,110 @@ export default {
                         name: "fcjc_yljcyjz_1012001ehhfx",
                         widget: "input",
                         clearable: false,
-                        manner: "ccnd",
                         placeholder: "请输入应力监测"
                     },
                     {
                         group: "瓦斯浓度（%）",
                         label: "1012001工作面",
                         name: "wsnd_gzm1012001",
-                        widget: "input",
+                        widget: "widgets",
+                        manner: "widget-wsnd",
+                        cols: 12,
+                        widgets: [
+                            {
+                                widget: "input",
+                                name : "v1",
+                                clearable: false
+                            },
+                            {
+                                widget: "input",
+                                name : "v2",
+                                clearable: false
+                            },
+                            {
+                                widget: "input",
+                                name : "v3",
+                                clearable: false
+                            }
+                        ],
                         clearable: false,
                         placeholder: "请输入瓦斯浓度"
                     },
                     {
                         label: "1012001工作面上隅角",
                         name: "wsnd_gzm1012001_syj",
-                        widget: "input",
+                        widget: "widgets",
+                        manner: "widget-wsnd",
+                        cols: 12,
+                        widgets: [
+                            {
+                                widget: "input",
+                                name : "v1",
+                                clearable: false
+                            },
+                            {
+                                widget: "input",
+                                name : "v2",
+                                clearable: false
+                            },
+                            {
+                                widget: "input",
+                                name : "v3",
+                                clearable: false
+                            }
+                        ],
                         clearable: false,
                         placeholder: "请输入瓦斯浓度"
                     },
                     {
                         label: "1012001回风巷",
                         name: "wsnd_gzm1012001_hfx",
-                        widget: "input",
+                        widget: "widgets",
+                        manner: "widget-wsnd",
+                        cols: 12,
+                        widgets: [
+                            {
+                                widget: "input",
+                                name : "v1",
+                                clearable: false
+                            },
+                            {
+                                widget: "input",
+                                name : "v2",
+                                clearable: false
+                            },
+                            {
+                                widget: "input",
+                                name : "v3",
+                                clearable: false
+                            }
+                        ],
                         clearable: false,
                         placeholder: "请输入瓦斯浓度"
                     },
                     {
                         label: "1012001胶带运输巷",
                         name: "wsnd_gzm1012001_jdysx",
-                        widget: "input",
+                        widget: "widgets",
+                        manner: "widget-wsnd",
+                        cols: 12,
+                        widgets: [
+                            {
+                                widget: "input",
+                                name : "v1",
+                                clearable: false
+                            },
+                            {
+                                widget: "input",
+                                name : "v2",
+                                clearable: false
+                            },
+                            {
+                                widget: "input",
+                                name : "v3",
+                                clearable: false
+                            }
+                        ],
                         clearable: false,
                         placeholder: "请输入瓦斯浓度"
                     },
@@ -2048,7 +2122,8 @@ export default {
                         label: "物流中心",
                         name: "jbjs_wlzx",
                         widget: "textarea",
-                        rows:4,
+                        rows: 3,
+                        style: "width:630px;",
                         clearable: false,
                         placeholder: "请输入"
                     },
@@ -2056,7 +2131,9 @@ export default {
                         label: "东翼一号回风立井",
                         name: "jbjs_dyyhhflj",
                         widget: "textarea",
-                        rows:4,
+                        rows: 3,
+                        style: "width:630px;",
+                        newline : true,
                         clearable: false,
                         placeholder: "请输入"
                     },
@@ -2112,7 +2189,7 @@ export default {
                         placeholder: "请输入"
                     },
                     {
-                        group : "<span class='sub-group'> - 当日领导带班</span>",
+                        group: "<span class='sub-group'> - 当日领导带班</span>",
                         label: "零点班",
                         name: "drlddb_ldb",
                         widget: "input",
@@ -2134,7 +2211,7 @@ export default {
                         placeholder: "请输入"
                     },
                     {
-                        group : "<span class='sub-group'> - 今日领导带班</span>",
+                        group: "<span class='sub-group'> - 今日领导带班</span>",
                         label: "零点班",
                         name: "jrlddb_ldb",
                         widget: "input",
@@ -2156,7 +2233,7 @@ export default {
                         placeholder: "请输入"
                     },
                     {
-                        group : "<span class='sub-group'> - 隐患</span>",
+                        group: "<span class='sub-group'> - 隐患</span>",
                         label: "一般隐患（条）",
                         name: "yh_ybyh",
                         widget: "input",
@@ -2173,13 +2250,15 @@ export default {
                     {
                         label: "详情",
                         name: "yh_desc",
-                        widget: "texarea",
-                        rows : 4,
+                        widget: "textarea",
+                        rows: 4,
+                        newline : true,
                         clearable: false,
+                        style: "width:630px;",
                         placeholder: "请输入"
                     },
                     {
-                        group : "生产系统运行情况",
+                        group: "生产系统运行情况",
                         label: "提升系统",
                         name: "jdd_tsxt",
                         widget: "input",
@@ -2190,7 +2269,7 @@ export default {
                         label: "通风系统",
                         name: "tfd_desc",
                         widget: "input",
-                        newline : true,
+                        newline: true,
                         style: "width:630px;",
                         placeholder: "请输入工作详情"
                     },
@@ -2198,7 +2277,7 @@ export default {
                         label: "供电系统",
                         name: "jdd_gdxt",
                         widget: "input",
-                        newline : true,
+                        newline: true,
                         style: "width:630px;",
                         placeholder: "请输入工作详情"
                     },
@@ -2206,7 +2285,7 @@ export default {
                         label: "运输系统",
                         name: "ysd_desc",
                         widget: "input",
-                        newline : true,
+                        newline: true,
                         style: "width:630px;",
                         placeholder: "请输入工作详情"
                     },
@@ -2214,7 +2293,7 @@ export default {
                         label: "排水系统",
                         name: "jdd_psxt",
                         widget: "input",
-                        newline : true,
+                        newline: true,
                         style: "width:630px;",
                         placeholder: "请输入工作详情"
                     },
@@ -2345,7 +2424,7 @@ export default {
             this.$refs[`form${this.component.reportType}`]
                 .getValidateModel()
                 .then(res => {
-                    $excel.exportReportA(res);
+                    $excel[`exportReport${this.component.reportType==1?'A':'B'}`](res);
                 });
         }
     }
@@ -2552,6 +2631,57 @@ export default {
                 & > div {
                     &:after {
                         content: "m³";
+                    }
+                }
+            }
+        }
+    }
+
+    .xui-widgets.xui-widgets-style.xui-field-widget-component.xui-widgets-manner-widget-wsnd {
+        .xui-widgets-item:nth-child(1){
+            .xui-input.xui-input-style  .xui-input-wrap {
+                & > div {
+                    &:before {
+                        content: "①";
+                    }
+                }
+            }
+        }
+        .xui-widgets-item:nth-child(2){
+            .xui-input.xui-input-style .xui-input-wrap {
+                & > div {
+                    &:before {
+                        content: "②";
+                    }
+                }
+            }
+        }
+        .xui-widgets-item:nth-child(3){
+            .xui-input.xui-input-style .xui-input-wrap {
+                & > div {
+                    &:before {
+                        content: "③";
+                    }
+                }
+            }
+        }
+        .xui-input.xui-input-style {
+            width: 80px;
+            margin-right: 5px;
+            .xui-input-inner {
+                padding: 0px 5px 0px 35px;
+            }
+            .xui-input-wrap {
+                & > div {
+                    &:before {
+                        content: "①";
+                        border-right: 1px solid @color-border;
+                        position: absolute;
+                        left: 0px;
+                        top: 0px;
+                        bottom: 0px;
+                        width: 30px;
+                        text-align: center;
                     }
                 }
             }
