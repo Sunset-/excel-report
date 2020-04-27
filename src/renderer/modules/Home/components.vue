@@ -88,11 +88,11 @@ export default {
             }
         },
         removeComponent(model) {
-            // $confirm(`确定删除报表：${model.name}?`).then(res => {
-            Store.remove(model).then(res => {
-                this.refresh();
+            $confirm(`确定删除报表：${model.gzrrq||"未知日期"} ${model.title}?`).then(res => {
+                Store.remove(model).then(res => {
+                    this.refresh();
+                });
             });
-            // });
         },
         getTitle(record) {
             var title = record.title || "未命名";
