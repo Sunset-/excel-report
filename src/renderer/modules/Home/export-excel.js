@@ -23,8 +23,6 @@
     return v.toFixed(d);
   }
 
-  var COL_SIZE = 12;
-
   var STYLE_BORDER_ALL = {
     top: {
       style: "thin",
@@ -139,6 +137,7 @@
     var wb = { SheetNames: ["Sheet1"], Sheets: {} };
     var sheetData = {};
     var ri = 0;
+    var colSize = 12;
 
     //宽度
     sheetData["!cols"] = [
@@ -188,7 +187,7 @@
       { hpt: 38 },
     ];
     //标题
-    text(sheetData, [ri, 0, ri, COL_SIZE], data.title, STYLE_TITLE);
+    text(sheetData, [ri, 0, ri, colSize], data.title, STYLE_TITLE);
     ri++;
     //值班领导
     text(
@@ -216,18 +215,8 @@
     text(sheetData, [ri + 5, 2, 3, 0], `商品煤`, STYLE_CELL);
     text(sheetData, [ri + 5, 3, 1, 0], `精煤`, STYLE_CELL);
     text(sheetData, [ri + 7, 3, 1, 0], `筛混煤`, STYLE_CELL);
-    text(
-      sheetData,
-      [ri + 1, 4, 1, 1],
-      fixed(num(data.ym_rc), 1),
-      STYLE_CELL
-    );
-    text(
-      sheetData,
-      [ri + 1, 6, 1, 1],
-      fixed(num(data.ym_ylj), 1),
-      STYLE_CELL
-    );
+    text(sheetData, [ri + 1, 4, 1, 1], fixed(num(data.ym_rc), 1), STYLE_CELL);
+    text(sheetData, [ri + 1, 6, 1, 1], fixed(num(data.ym_ylj), 1), STYLE_CELL);
     text(sheetData, [ri + 3, 4, 1, 1], fixed(num(data.rxl_rc), 1), STYLE_CELL);
     text(sheetData, [ri + 3, 6, 1, 1], fixed(num(data.rxl_ylj), 1), STYLE_CELL);
     text(sheetData, [ri + 5, 4, 1, 1], fixed(num(data.jm_rc), 1), STYLE_CELL);
@@ -295,52 +284,142 @@
     //掘一队
     text(sheetData, [ri + 2, 1, 1, 0], "掘一队", STYLE_CELL);
     text(sheetData, [ri + 2, 2, 0, 0], "1032101工作面回风巷", STYLE_CELL);
-    text(sheetData, [ri + 2, 3, 0, 1], `掘进${data.j1d_1032101hfx_rjj}米`, STYLE_CELL);
-    text(sheetData, [ri + 2, 5, 0, 2], `月累计${data.j1d_1032101hfx_yjj}米`, STYLE_CELL);
+    text(
+      sheetData,
+      [ri + 2, 3, 0, 1],
+      `掘进${data.j1d_1032101hfx_rjj}米`,
+      STYLE_CELL
+    );
+    text(
+      sheetData,
+      [ri + 2, 5, 0, 2],
+      `月累计${data.j1d_1032101hfx_yjj}米`,
+      STYLE_CELL
+    );
     text(sheetData, [ri + 3, 2], "1032102工作面回风联巷", STYLE_CELL);
-    text(sheetData, [ri + 3, 3, 0, 1], `掘进${data.j1d_1032102hflx_rjj}米`, STYLE_CELL);
-    text(sheetData, [ri + 3, 5, 0, 2],  `月累计${data.j1d_1032102hflx_yjj}米`, STYLE_CELL);
+    text(
+      sheetData,
+      [ri + 3, 3, 0, 1],
+      `掘进${data.j1d_1032102hflx_rjj}米`,
+      STYLE_CELL
+    );
+    text(
+      sheetData,
+      [ri + 3, 5, 0, 2],
+      `月累计${data.j1d_1032102hflx_yjj}米`,
+      STYLE_CELL
+    );
     //掘三队
     text(sheetData, [ri + 4, 1, 1, 0], "掘三队", STYLE_CELL);
     text(sheetData, [ri + 4, 2, 0, 0], "1012006辅运绕道", STYLE_CELL);
-    text(sheetData, [ri + 4, 3, 0, 1], `掘进${data.j3d_1012006fyrd_rjj}米`, STYLE_CELL);
-    text(sheetData, [ri + 4, 5, 0, 2],  `月累计${data.j3d_1012006fyrd_yjj}米`, STYLE_CELL);
+    text(
+      sheetData,
+      [ri + 4, 3, 0, 1],
+      `掘进${data.j3d_1012006fyrd_rjj}米`,
+      STYLE_CELL
+    );
+    text(
+      sheetData,
+      [ri + 4, 5, 0, 2],
+      `月累计${data.j3d_1012006fyrd_yjj}米`,
+      STYLE_CELL
+    );
     text(sheetData, [ri + 5, 2], "1012006回风道", STYLE_CELL);
-    text(sheetData, [ri + 5, 3, 0, 1], `掘进${data.j3d_1012006hfd_rjj}米`, STYLE_CELL);
-    text(sheetData, [ri + 5, 5, 0, 2],  `月累计${data.j3d_1012006hfd_yjj}米`, STYLE_CELL);
+    text(
+      sheetData,
+      [ri + 5, 3, 0, 1],
+      `掘进${data.j3d_1012006hfd_rjj}米`,
+      STYLE_CELL
+    );
+    text(
+      sheetData,
+      [ri + 5, 5, 0, 2],
+      `月累计${data.j3d_1012006hfd_yjj}米`,
+      STYLE_CELL
+    );
     //重庆中环
     text(sheetData, [ri + 6, 1, 3, 0], "重庆中环", STYLE_CELL);
     text(sheetData, [ri + 6, 2, 0, 0], "2-1煤辅运联络巷", STYLE_CELL);
-    text(sheetData, [ri + 6, 3, 0, 1], `掘进${data.cqzh_21mfyllx_rjj}米`, STYLE_CELL);
-    text(sheetData, [ri + 6, 5, 0, 2],  `月累计${data.cqzh_21mfyllx_yjj}米`, STYLE_CELL);
+    text(
+      sheetData,
+      [ri + 6, 3, 0, 1],
+      `掘进${data.cqzh_21mfyllx_rjj}米`,
+      STYLE_CELL
+    );
+    text(
+      sheetData,
+      [ri + 6, 5, 0, 2],
+      `月累计${data.cqzh_21mfyllx_yjj}米`,
+      STYLE_CELL
+    );
     text(sheetData, [ri + 7, 2], "东翼一号回风反掘", STYLE_CELL);
-    text(sheetData, [ri + 7, 3, 0, 1], `掘进${data.cqzh_dyyhhffj_rjj}米`, STYLE_CELL);
-    text(sheetData, [ri + 7, 5, 0, 2],  `月累计${data.cqzh_dyyhhffj_yjj}米`, STYLE_CELL);
+    text(
+      sheetData,
+      [ri + 7, 3, 0, 1],
+      `掘进${data.cqzh_dyyhhffj_rjj}米`,
+      STYLE_CELL
+    );
+    text(
+      sheetData,
+      [ri + 7, 5, 0, 2],
+      `月累计${data.cqzh_dyyhhffj_yjj}米`,
+      STYLE_CELL
+    );
     text(sheetData, [ri + 8, 2], "1012007回风巷", STYLE_CELL);
-    text(sheetData, [ri + 8, 3, 0, 1], `掘进${data.cqzh_1012007hfx_rjj}米`, STYLE_CELL);
-    text(sheetData, [ri + 8, 5, 0, 2],  `月累计${data.cqzh_1012007hfx_yjj}米`, STYLE_CELL);
+    text(
+      sheetData,
+      [ri + 8, 3, 0, 1],
+      `掘进${data.cqzh_1012007hfx_rjj}米`,
+      STYLE_CELL
+    );
+    text(
+      sheetData,
+      [ri + 8, 5, 0, 2],
+      `月累计${data.cqzh_1012007hfx_yjj}米`,
+      STYLE_CELL
+    );
     text(sheetData, [ri + 9, 2], "东翼一号辅运巷", STYLE_CELL);
-    text(sheetData, [ri + 9, 3, 0, 1], `掘进${data.cqzh_dyyhfyx_rjj}米`, STYLE_CELL);
-    text(sheetData, [ri + 9, 5, 0, 2],  `月累计${data.cqzh_dyyhfyx_yjj}米`, STYLE_CELL);
+    text(
+      sheetData,
+      [ri + 9, 3, 0, 1],
+      `掘进${data.cqzh_dyyhfyx_rjj}米`,
+      STYLE_CELL
+    );
+    text(
+      sheetData,
+      [ri + 9, 5, 0, 2],
+      `月累计${data.cqzh_dyyhfyx_yjj}米`,
+      STYLE_CELL
+    );
     //中煤36处
     text(sheetData, [ri + 10, 1], "中煤36处", STYLE_CELL);
     text(sheetData, [ri + 10, 2], "1012007皮带巷", STYLE_CELL);
-    text(sheetData, [ri + 10, 3, 0, 1], `掘进${data.zm36c_1012007pdx_rjj}米`, STYLE_CELL);
-    text(sheetData, [ri + 10, 5, 0, 2],  `月累计${data.zm36c_1012007pdx_yjj}米`, STYLE_CELL);
+    text(
+      sheetData,
+      [ri + 10, 3, 0, 1],
+      `掘进${data.zm36c_1012007pdx_rjj}米`,
+      STYLE_CELL
+    );
+    text(
+      sheetData,
+      [ri + 10, 5, 0, 2],
+      `月累计${data.zm36c_1012007pdx_yjj}米`,
+      STYLE_CELL
+    );
     //合计掘进进尺
     text(sheetData, [ri + 11, 1, 0, 1], "合计掘进进尺", STYLE_CELL);
     text(sheetData, [ri + 11, 3, 0, 1], `掘进${data.total_rjj}米`, STYLE_CELL);
-    text(sheetData, [ri + 11, 5, 0, 2],  `月累计${data.total_yjj}米`, STYLE_CELL);
+    text(
+      sheetData,
+      [ri + 11, 5, 0, 2],
+      `月累计${data.total_yjj}米`,
+      STYLE_CELL
+    );
 
     //抽采队
     text(sheetData, [ri, 8, 3, 0], "抽采队", STYLE_CELL);
     text(sheetData, [ri, 9, 1, 3], data.ccd_ccl, STYLE_CELL);
-    text(
-      sheetData,
-      [ri + 2, 9, 1, 3],
-      data.ccd_desc,
-      STYLE_CELL_LEFT
-    );
+    text(sheetData, [ri + 2, 9, 1, 3], data.ccd_desc, STYLE_CELL_LEFT);
     //通风队
     text(sheetData, [ri + 4, 8], "通风队", STYLE_CELL);
     text(sheetData, [ri + 4, 9], "通风系统", STYLE_CELL);
@@ -359,50 +438,50 @@
     text(sheetData, [ri + 8, 10, 1, 2], data.jdd_psxt, STYLE_CELL);
     //准备队
     text(sheetData, [ri + 10, 8], "准备队", STYLE_CELL);
-    text(
-      sheetData,
-      [ri + 10, 9, 0, 3],
-      data.zbd_desc,
-      STYLE_CELL_LEFT
-    );
+    text(sheetData, [ri + 10, 9, 0, 3], data.zbd_desc, STYLE_CELL_LEFT);
     //东翼一号回风立井
     text(sheetData, [ri + 11, 8], "东翼一号回风立井", STYLE_CELL);
-    text(
-      sheetData,
-      [ri + 11, 9, 0, 3],
-      data.dyyhhflj_desc,
-      STYLE_CELL_LEFT
-    );
+    text(sheetData, [ri + 11, 9, 0, 3], data.dyyhhflj_desc, STYLE_CELL_LEFT);
     ri += 12;
     //生产影响
     text(sheetData, [ri, 0], "序号", STYLE_CELL);
     text(sheetData, [ri, 1, 0, 6], "生产影响", STYLE_CELL);
     text(sheetData, [ri, 8], "责任人", STYLE_CELL);
     text(sheetData, [ri, 9, 0, 3], "处理结果", STYLE_CELL);
-    ["1","2","3"].forEach((v,i) => {
+    ["1", "2", "3"].forEach((v, i) => {
       text(sheetData, [ri + i + 1, 0], i + 1, STYLE_CELL);
-      text(sheetData, [ri + i + 1, 1, 0, 6], data[`scqk${v}_scyx`], STYLE_CELL_LEFT);
+      text(
+        sheetData,
+        [ri + i + 1, 1, 0, 6],
+        data[`scqk${v}_scyx`],
+        STYLE_CELL_LEFT
+      );
       text(sheetData, [ri + i + 1, 8], data[`scqk${v}_zrr`], STYLE_CELL);
-      text(sheetData, [ri + i + 1, 9, 0, 3], data[`scqk${v}_cljg`], STYLE_CELL_LEFT);
+      text(
+        sheetData,
+        [ri + i + 1, 9, 0, 3],
+        data[`scqk${v}_cljg`],
+        STYLE_CELL_LEFT
+      );
     });
     ri += 1 + 3;
     //备注
     text(sheetData, [ri, 0], "备注", STYLE_CELL_LEFT);
-    text(
-      sheetData,
-      [ri, 1, 0, 11],
-      data.remark,
-      STYLE_CELL
-    );
+    text(sheetData, [ri, 1, 0, 11], data.remark, STYLE_CELL);
     ri += 1;
     //备注
-    text(sheetData, [ri, 0, 0, 5], `值班领导：${data.tbrzbld}`, STYLE_NORMAL_LEFT);
+    text(
+      sheetData,
+      [ri, 0, 0, 5],
+      `值班领导：${data.tbrzbld}`,
+      STYLE_NORMAL_LEFT
+    );
     text(sheetData, [ri, 6, 0, 2], `天气：${data.tbrtq}`, STYLE_NORMAL);
     text(sheetData, [ri, 10, 0, 2], `日期：${data.tbrrq}`, STYLE_NORMAL_RIGHT);
 
     sheetData["!ref"] = `A1:${XLSX.utils.encode_cell({
       r: ri,
-      c: COL_SIZE,
+      c: colSize,
     })}`;
     wb.Sheets["Sheet1"] = sheetData;
     saveAs(
@@ -420,56 +499,81 @@
     var wb = { SheetNames: ["Sheet1"], Sheets: {} };
     var sheetData = {};
     var ri = 0;
+    var colSize = 18;
+
+    var STYLE_CELL = {
+      font: { name: "宋体", sz: 10, color: { rgb: "000000" } },
+      border: STYLE_BORDER_ALL,
+      alignment: {
+        vertical: "center",
+        horizontal: "center",
+        wrapText: true,
+      },
+    };
 
     //宽度
     sheetData["!cols"] = [
-      { wch: 6.6 }, //A
-      { wch: 12.6 }, //B
-      { wch: 31 }, //C
-      { wch: 12 }, //D
+      { wch: 14 }, //A
+      { wch: 14 }, //B
+      { wch: 14 }, //C
+      { wch: 14 }, //D
       { wch: 14 }, //E
-      { wch: 19 }, //F
-      { wch: 15 }, //G
+      { wch: 14 }, //F
+      { wch: 14 }, //G
       { wch: 14 }, //H
-      { wch: 14.5 }, //I
-      { wch: 21 }, //G
-      { wch: 21 }, //K
-      { wch: 21 }, //L
-      { wch: 30 }, //M
+      { wch: 14 }, //I
+      { wch: 14 }, //G
+      { wch: 14 }, //K
+      { wch: 14 }, //L
+      { wch: 14 }, //M
+      { wch: 14 }, //N
+      { wch: 14 }, //O
+      { wch: 14 }, //P
+      { wch: 14 }, //Q
+      { wch: 14 }, //R
     ];
     sheetData["!rows"] = [
-      { hpt: 45 },
-      { hpt: 29 },
-      { hpt: 45 },
-      { hpt: 24 },
-      { hpt: 24 },
-      { hpt: 24 },
-      { hpt: 24 },
-      { hpt: 24 },
-      { hpt: 24 },
-      { hpt: 24 },
-      { hpt: 24 },
-      { hpt: 37 },
-      { hpt: 37 },
-      { hpt: 55 },
-      { hpt: 55 },
-      { hpt: 55 },
-      { hpt: 55 },
-      { hpt: 55 },
-      { hpt: 55 },
-      { hpt: 55 },
-      { hpt: 55 },
-      { hpt: 55 },
-      { hpt: 55 },
-      { hpt: 40 },
-      { hpt: 45 },
-      { hpt: 45 },
-      { hpt: 45 },
-      { hpt: 45 },
-      { hpt: 38 },
+      { hpt: 25 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
+      { hpt: 15 },
     ];
     //标题
-    text(sheetData, [ri, 0, ri, COL_SIZE], data.title, STYLE_TITLE);
+    text(sheetData, [ri, 0, ri, colSize], data.title, STYLE_TITLE);
     ri++;
     //值班领导
     text(
@@ -478,212 +582,538 @@
       `  123值班领导：${data.gzrzbld}`,
       STYLE_NORMAL_LEFT
     );
-    text(sheetData, [ri, 6, 0, 2], `天气：${data.gzrtq}`, STYLE_NORMAL);
-    text(sheetData, [ri, 10, 0, 2], `日期：${data.gzrrq}`, STYLE_NORMAL_RIGHT);
+    text(sheetData, [ri, 6, 0, 3], `天气：${data.gzrtq}`, STYLE_NORMAL);
+    text(sheetData, [ri, 15, 0, 2], `日期：${data.gzrrq}`, STYLE_NORMAL_RIGHT);
     ri++;
-    text(sheetData, [ri, 0, 16, 0], `生产情况`, STYLE_CELL_VERT);
     //产销量
-    text(sheetData, [ri, 1, 8, 0], `产销量`, STYLE_CELL);
+    text(sheetData, [ri, 0, 8, 0], `产销量`, STYLE_CELL);
     text(
       sheetData,
-      [ri, 2, 0, 1],
+      [ri, 1, 0, 1],
       `   品种                                        产量`,
       STYLE_CELL_XX
     );
-    text(sheetData, [ri, 4, 0, 1], `日产量（t）`, STYLE_CELL);
-    text(sheetData, [ri, 6, 0, 1], `月累计（t）`, STYLE_CELL);
-    text(sheetData, [ri + 1, 2, 1, 1], `原煤`, STYLE_CELL);
-    text(sheetData, [ri + 3, 2, 1, 1], `入选量`, STYLE_CELL);
-    text(sheetData, [ri + 5, 2, 3, 0], `商品煤`, STYLE_CELL);
-    text(sheetData, [ri + 5, 3, 1, 0], `精煤`, STYLE_CELL);
-    text(sheetData, [ri + 7, 3, 1, 0], `筛混煤`, STYLE_CELL);
-    text(
-      sheetData,
-      [ri + 1, 4, 1, 1],
-      fixed(num(data.ym_rc), 1),
-      STYLE_CELL
-    );
-    text(
-      sheetData,
-      [ri + 1, 6, 1, 1],
-      fixed(num(data.ym_ylj), 1),
-      STYLE_CELL
-    );
-    text(sheetData, [ri + 3, 4, 1, 1], fixed(num(data.rxl_rc), 1), STYLE_CELL);
-    text(sheetData, [ri + 3, 6, 1, 1], fixed(num(data.rxl_ylj), 1), STYLE_CELL);
-    text(sheetData, [ri + 5, 4, 1, 1], fixed(num(data.jm_rc), 1), STYLE_CELL);
-    text(sheetData, [ri + 5, 6, 1, 1], fixed(num(data.jm_ylj), 1), STYLE_CELL);
-    text(sheetData, [ri + 7, 4, 1, 1], fixed(num(data.shm_rc), 1), STYLE_CELL);
-    text(sheetData, [ri + 7, 6, 1, 1], fixed(num(data.shm_ylj), 1), STYLE_CELL);
+    text(sheetData, [ri, 3], `日产量（t）`, STYLE_CELL);
+    text(sheetData, [ri, 4], `月累计（t）`, STYLE_CELL);
+    text(sheetData, [ri + 1, 1, 1, 1], `原煤`, STYLE_CELL);
+    text(sheetData, [ri + 3, 1, 1, 1], `入选量`, STYLE_CELL);
+    text(sheetData, [ri + 5, 1, 3, 0], `商品煤`, STYLE_CELL);
+    text(sheetData, [ri + 5, 2, 1, 0], `精煤`, STYLE_CELL);
+    text(sheetData, [ri + 7, 2, 1, 0], `筛混煤`, STYLE_CELL);
+    text(sheetData, [ri + 1, 3, 1, 0], fixed(num(data.ym_rc), 1), STYLE_CELL);
+    text(sheetData, [ri + 1, 4, 1, 0], fixed(num(data.ym_ylj), 1), STYLE_CELL);
+    text(sheetData, [ri + 3, 3, 1, 0], fixed(num(data.rxl_rc), 1), STYLE_CELL);
+    text(sheetData, [ri + 3, 4, 1, 0], fixed(num(data.rxl_ylj), 1), STYLE_CELL);
+    text(sheetData, [ri + 5, 3, 1, 0], fixed(num(data.jm_rc), 1), STYLE_CELL);
+    text(sheetData, [ri + 5, 4, 1, 0], fixed(num(data.jm_ylj), 1), STYLE_CELL);
+    text(sheetData, [ri + 7, 3, 1, 0], fixed(num(data.shm_rc), 1), STYLE_CELL);
+    text(sheetData, [ri + 7, 4, 1, 0], fixed(num(data.shm_ylj), 1), STYLE_CELL);
     //销售
-    text(sheetData, [ri, 8, 8, 0], `销售`, STYLE_CELL);
-    text(sheetData, [ri, 9], `品种`, STYLE_CELL);
-    text(sheetData, [ri, 10], `日销量（t）`, STYLE_CELL);
-    text(sheetData, [ri, 11], `月销售（t）`, STYLE_CELL);
-    text(sheetData, [ri, 12], `品种煤库存（t）`, STYLE_CELL);
-    text(sheetData, [ri + 1, 9], `原煤`, STYLE_CELL);
-    text(sheetData, [ri + 1, 10], fixed(num(data.ym_rxl), 2), STYLE_CELL);
-    text(sheetData, [ri + 1, 11], fixed(num(data.ym_yxl), 2), STYLE_CELL);
-    text(sheetData, [ri + 1, 12], fixed(num(data.ym_kc), 2), STYLE_CELL);
-    text(sheetData, [ri + 2, 9], `筛混煤`, STYLE_CELL);
-    text(sheetData, [ri + 2, 10], fixed(num(data.shm_rxl), 2), STYLE_CELL);
-    text(sheetData, [ri + 2, 11], fixed(num(data.shm_yxl), 2), STYLE_CELL);
-    text(sheetData, [ri + 2, 12], fixed(num(data.shm_kc), 2), STYLE_CELL);
-    text(sheetData, [ri + 3, 9], `末精煤`, STYLE_CELL);
-    text(sheetData, [ri + 3, 10], fixed(num(data.mjm_rxl), 2), STYLE_CELL);
-    text(sheetData, [ri + 3, 11], fixed(num(data.mjm_yxl), 2), STYLE_CELL);
-    text(sheetData, [ri + 3, 12], fixed(num(data.mjm_kc), 2), STYLE_CELL);
-    text(sheetData, [ri + 4, 9], `籽煤`, STYLE_CELL);
-    text(sheetData, [ri + 4, 10], fixed(num(data.zm_rxl), 2), STYLE_CELL);
-    text(sheetData, [ri + 4, 11], fixed(num(data.zm_yxl), 2), STYLE_CELL);
+    text(sheetData, [ri, 5, 0, 1], `日销量（t）`, STYLE_CELL);
+    text(sheetData, [ri, 7, 0, 1], `月销量（t）`, STYLE_CELL);
+    text(sheetData, [ri, 9, 0, 1], `品种煤库存（t）`, STYLE_CELL);
+    text(sheetData, [ri + 1, 5], `原煤`, STYLE_CELL);
+    text(sheetData, [ri + 1, 6], fixed(num(data.ym_rxl), 2), STYLE_CELL);
+    text(sheetData, [ri + 1, 7, 0, 1], fixed(num(data.ym_yxl), 2), STYLE_CELL);
+    text(sheetData, [ri + 1, 9, 0, 1], fixed(num(data.ym_kc), 2), STYLE_CELL);
+    text(sheetData, [ri + 2, 5], `筛混煤`, STYLE_CELL);
+    text(sheetData, [ri + 2, 6], fixed(num(data.shm_rxl), 2), STYLE_CELL);
+    text(sheetData, [ri + 2, 7, 0, 1], fixed(num(data.shm_yxl), 2), STYLE_CELL);
+    text(sheetData, [ri + 2, 9, 0, 1], fixed(num(data.shm_kc), 2), STYLE_CELL);
+    text(sheetData, [ri + 3, 5], `末精煤`, STYLE_CELL);
+    text(sheetData, [ri + 3, 6], fixed(num(data.mjm_rxl), 2), STYLE_CELL);
+    text(sheetData, [ri + 3, 7, 0, 1], fixed(num(data.mjm_yxl), 2), STYLE_CELL);
+    text(sheetData, [ri + 3, 9, 0, 1], fixed(num(data.mjm_kc), 2), STYLE_CELL);
+    text(sheetData, [ri + 4, 5], `籽煤`, STYLE_CELL);
+    text(sheetData, [ri + 4, 6], fixed(num(data.zm_rxl), 2), STYLE_CELL);
+    text(sheetData, [ri + 4, 7, 0, 1], fixed(num(data.zm_yxl), 2), STYLE_CELL);
     text(
       sheetData,
-      [ri + 4, 12, 2, 0],
+      [ri + 4, 9, 2, 1],
       fixed(num(data.zm_sbkm_dk_kc), 2),
       STYLE_CELL
     );
-    text(sheetData, [ri + 5, 9], `三八块煤`, STYLE_CELL);
-    text(sheetData, [ri + 5, 10], fixed(num(data.sbkm_rxl), 2), STYLE_CELL);
-    text(sheetData, [ri + 5, 11], fixed(num(data.sbkm_yxl), 2), STYLE_CELL);
-    text(sheetData, [ri + 6, 9], `大块`, STYLE_CELL);
-    text(sheetData, [ri + 6, 10], fixed(num(data.dk_rxl), 2), STYLE_CELL);
-    text(sheetData, [ri + 6, 11], fixed(num(data.dk_yxl), 2), STYLE_CELL);
-    text(sheetData, [ri + 7, 9, 1, 0], `合计`, STYLE_CELL);
+    text(sheetData, [ri + 5, 5], `三八块煤`, STYLE_CELL);
+    text(sheetData, [ri + 5, 6], fixed(num(data.sbkm_rxl), 2), STYLE_CELL);
     text(
       sheetData,
-      [ri + 7, 10, 1, 0],
+      [ri + 5, 7, 0, 1],
+      fixed(num(data.sbkm_yxl), 2),
+      STYLE_CELL
+    );
+    text(sheetData, [ri + 6, 5], `大块`, STYLE_CELL);
+    text(sheetData, [ri + 6, 6], fixed(num(data.dk_rxl), 2), STYLE_CELL);
+    text(sheetData, [ri + 6, 7, 0, 1], fixed(num(data.dk_yxl), 2), STYLE_CELL);
+    text(sheetData, [ri + 7, 5, 1, 0], `合计`, STYLE_CELL);
+    text(
+      sheetData,
+      [ri + 7, 6, 1, 0],
       fixed(num(data.total_rxl), 2),
       STYLE_CELL
     );
     text(
       sheetData,
-      [ri + 7, 11, 1, 0],
+      [ri + 7, 7, 1, 1],
       fixed(num(data.total_yxl), 2),
       STYLE_CELL
     );
     text(
       sheetData,
-      [ri + 7, 12, 1, 0],
+      [ri + 7, 9, 1, 1],
       fixed(num(data.total_kc), 2),
       STYLE_CELL
     );
     ri += 9;
-    //综采队
+    //采煤
+    text(sheetData, [ri, 0, 1, 0], "采煤", STYLE_CELL);
     text(sheetData, [ri, 1, 1, 0], "综采队", STYLE_CELL);
-    text(sheetData, [ri, 2, 1, 0], "1012001工作面", STYLE_CELL);
-    text(sheetData, [ri, 3, 0, 4], data.zcd_work, STYLE_CELL);
-    text(sheetData, [ri + 1, 3, 0, 4], data.zcd_desc, STYLE_CELL);
-    //掘一队
-    text(sheetData, [ri + 2, 1, 1, 0], "掘一队", STYLE_CELL);
-    text(sheetData, [ri + 2, 2, 0, 0], "1032101工作面回风巷", STYLE_CELL);
-    text(sheetData, [ri + 2, 3, 0, 1], `掘进${data.j1d_1032101hfx_rjj}米`, STYLE_CELL);
-    text(sheetData, [ri + 2, 5, 0, 2], `月累计${data.j1d_1032101hfx_yjj}米`, STYLE_CELL);
-    text(sheetData, [ri + 3, 2], "1032102工作面回风联巷", STYLE_CELL);
-    text(sheetData, [ri + 3, 3, 0, 1], `掘进${data.j1d_1032102hflx_rjj}米`, STYLE_CELL);
-    text(sheetData, [ri + 3, 5, 0, 2],  `月累计${data.j1d_1032102hflx_yjj}米`, STYLE_CELL);
-    //掘三队
-    text(sheetData, [ri + 4, 1, 1, 0], "掘三队", STYLE_CELL);
-    text(sheetData, [ri + 4, 2, 0, 0], "1012006辅运绕道", STYLE_CELL);
-    text(sheetData, [ri + 4, 3, 0, 1], `掘进${data.j3d_1012006fyrd_rjj}米`, STYLE_CELL);
-    text(sheetData, [ri + 4, 5, 0, 2],  `月累计${data.j3d_1012006fyrd_yjj}米`, STYLE_CELL);
-    text(sheetData, [ri + 5, 2], "1012006回风道", STYLE_CELL);
-    text(sheetData, [ri + 5, 3, 0, 1], `掘进${data.j3d_1012006hfd_rjj}米`, STYLE_CELL);
-    text(sheetData, [ri + 5, 5, 0, 2],  `月累计${data.j3d_1012006hfd_yjj}米`, STYLE_CELL);
-    //重庆中环
-    text(sheetData, [ri + 6, 1, 3, 0], "重庆中环", STYLE_CELL);
-    text(sheetData, [ri + 6, 2, 0, 0], "2-1煤辅运联络巷", STYLE_CELL);
-    text(sheetData, [ri + 6, 3, 0, 1], `掘进${data.cqzh_21mfyllx_rjj}米`, STYLE_CELL);
-    text(sheetData, [ri + 6, 5, 0, 2],  `月累计${data.cqzh_21mfyllx_yjj}米`, STYLE_CELL);
-    text(sheetData, [ri + 7, 2], "东翼一号回风反掘", STYLE_CELL);
-    text(sheetData, [ri + 7, 3, 0, 1], `掘进${data.cqzh_dyyhhffj_rjj}米`, STYLE_CELL);
-    text(sheetData, [ri + 7, 5, 0, 2],  `月累计${data.cqzh_dyyhhffj_yjj}米`, STYLE_CELL);
-    text(sheetData, [ri + 8, 2], "1012007回风巷", STYLE_CELL);
-    text(sheetData, [ri + 8, 3, 0, 1], `掘进${data.cqzh_1012007hfx_rjj}米`, STYLE_CELL);
-    text(sheetData, [ri + 8, 5, 0, 2],  `月累计${data.cqzh_1012007hfx_yjj}米`, STYLE_CELL);
-    text(sheetData, [ri + 9, 2], "东翼一号辅运巷", STYLE_CELL);
-    text(sheetData, [ri + 9, 3, 0, 1], `掘进${data.cqzh_dyyhfyx_rjj}米`, STYLE_CELL);
-    text(sheetData, [ri + 9, 5, 0, 2],  `月累计${data.cqzh_dyyhfyx_yjj}米`, STYLE_CELL);
-    //中煤36处
-    text(sheetData, [ri + 10, 1], "中煤36处", STYLE_CELL);
-    text(sheetData, [ri + 10, 2], "1012007皮带巷", STYLE_CELL);
-    text(sheetData, [ri + 10, 3, 0, 1], `掘进${data.zm36c_1012007pdx_rjj}米`, STYLE_CELL);
-    text(sheetData, [ri + 10, 5, 0, 2],  `月累计${data.zm36c_1012007pdx_yjj}米`, STYLE_CELL);
-    //合计掘进进尺
-    text(sheetData, [ri + 11, 1, 0, 1], "合计掘进进尺", STYLE_CELL);
-    text(sheetData, [ri + 11, 3, 0, 1], `掘进${data.total_rjj}米`, STYLE_CELL);
-    text(sheetData, [ri + 11, 5, 0, 2],  `月累计${data.total_yjj}米`, STYLE_CELL);
+    text(sheetData, [ri, 2, 1, 1], "1012001综采工作面", STYLE_CELL);
+    text(sheetData, [ri, 4, 0, 6], data.zcd_work, STYLE_CELL);
+    text(sheetData, [ri + 1, 4, 0, 6], data.zcd_desc, STYLE_CELL);
+    ri += 2;
+    //掘进
+    text(sheetData, [ri, 0, 13, 0], "掘进", STYLE_CELL);
+    text(
+      sheetData,
+      [ri, 1, 1, 2],
+      `   区域                                        掘进进尺`,
+      STYLE_CELL_XX
+    );
+    text(sheetData, [ri, 4, 1, 0], "月计划（m）", STYLE_CELL);
+    text(sheetData, [ri, 5, 1, 0], "日计划（m）", STYLE_CELL);
+    text(sheetData, [ri, 6, 1, 0], "日完成（m）", STYLE_CELL);
+    text(sheetData, [ri, 7, 1, 0], "月完成（m）", STYLE_CELL);
+    text(sheetData, [ri, 8, 1, 0], "累计（m）", STYLE_CELL);
+    text(sheetData, [ri, 9, 1, 0], "剩余（m）", STYLE_CELL);
 
-    //抽采队
-    text(sheetData, [ri, 8, 3, 0], "抽采队", STYLE_CELL);
-    text(sheetData, [ri, 9, 1, 3], data.ccd_ccl, STYLE_CELL);
+    text(sheetData, [ri + 2, 1, 2, 0], "东翼大巷", STYLE_CELL);
+    text(sheetData, [ri + 5, 1, 1, 0], "1012006工作面", STYLE_CELL);
+    text(sheetData, [ri + 7, 1], "1032101工作面", STYLE_CELL);
+    text(sheetData, [ri + 8, 1], "1032102工作面", STYLE_CELL);
+    text(sheetData, [ri + 9, 1, 2, 0], "1012007工作面", STYLE_CELL);
+    text(sheetData, [ri + 12, 1], "西翼大巷", STYLE_CELL);
+    text(sheetData, [ri + 13, 1, 0, 2], "掘进进尺合计（m）", STYLE_CELL);
+
+    text(sheetData, [ri + 2, 2, 0, 1], "一号回风大巷反掘", STYLE_CELL);
+    text(sheetData, [ri + 3, 2, 0, 1], "2-1煤辅运联络巷", STYLE_CELL);
+    text(sheetData, [ri + 4, 2, 0, 1], "一号辅运大巷", STYLE_CELL);
+    text(sheetData, [ri + 5, 2, 0, 1], "辅运绕道", STYLE_CELL);
+    text(sheetData, [ri + 6, 2, 0, 1], "回风道", STYLE_CELL);
+    text(sheetData, [ri + 7, 2, 0, 1], "回风绕道", STYLE_CELL);
+    text(sheetData, [ri + 8, 2, 0, 1], "回风联巷", STYLE_CELL);
+    text(sheetData, [ri + 9, 2, 0, 1], "胶运巷", STYLE_CELL);
+    text(sheetData, [ri + 10, 2, 0, 1], "回风巷", STYLE_CELL);
+    text(sheetData, [ri + 11, 2, 0, 1], "高抽巷", STYLE_CELL);
+    text(sheetData, [ri + 12, 2, 0, 1], "一号回风巷", STYLE_CELL);
+
+    text(sheetData, [ri + 2, 4], data.dydx_yhhfdxfj_yjh, STYLE_CELL);
+    text(sheetData, [ri + 2, 5], data.dydx_yhhfdxfj_rjh, STYLE_CELL);
+    text(sheetData, [ri + 2, 6], data.dydx_yhhfdxfj_rwc, STYLE_CELL);
+    text(sheetData, [ri + 2, 7], data.dydx_yhhfdxfj_ywc, STYLE_CELL);
+    text(sheetData, [ri + 2, 8], data.dydx_yhhfdxfj_lj, STYLE_CELL);
+    text(sheetData, [ri + 2, 9], data.dydx_yhhfdxfj_sy, STYLE_CELL);
+
+    text(sheetData, [ri + 3, 4], data.dydx_21mfyllx_yjh, STYLE_CELL);
+    text(sheetData, [ri + 3, 5], data.dydx_21mfyllx_rjh, STYLE_CELL);
+    text(sheetData, [ri + 3, 6], data.dydx_21mfyllx_rwc, STYLE_CELL);
+    text(sheetData, [ri + 3, 7], data.dydx_21mfyllx_ywc, STYLE_CELL);
+    text(sheetData, [ri + 3, 8], data.dydx_21mfyllx_lj, STYLE_CELL);
+    text(sheetData, [ri + 3, 9], data.dydx_21mfyllx_sy, STYLE_CELL);
+
+    text(sheetData, [ri + 4, 4], data.dydx_yhfydx_yjh, STYLE_CELL);
+    text(sheetData, [ri + 4, 5], data.dydx_yhfydx_rjh, STYLE_CELL);
+    text(sheetData, [ri + 4, 6], data.dydx_yhfydx_rwc, STYLE_CELL);
+    text(sheetData, [ri + 4, 7], data.dydx_yhfydx_ywc, STYLE_CELL);
+    text(sheetData, [ri + 4, 8], data.dydx_yhfydx_lj, STYLE_CELL);
+    text(sheetData, [ri + 4, 9], data.dydx_yhfydx_sy, STYLE_CELL);
+
+    text(sheetData, [ri + 5, 4], data.gzm1012006_fyrd_yjh, STYLE_CELL);
+    text(sheetData, [ri + 5, 5], data.gzm1012006_fyrd_rjh, STYLE_CELL);
+    text(sheetData, [ri + 5, 6], data.gzm1012006_fyrd_rwc, STYLE_CELL);
+    text(sheetData, [ri + 5, 7], data.gzm1012006_fyrd_ywc, STYLE_CELL);
+    text(sheetData, [ri + 5, 8], data.gzm1012006_fyrd_lj, STYLE_CELL);
+    text(sheetData, [ri + 5, 9], data.gzm1012006_fyrd_sy, STYLE_CELL);
+
+    text(sheetData, [ri + 6, 4], data.gzm1012006_hfd_yjh, STYLE_CELL);
+    text(sheetData, [ri + 6, 5], data.gzm1012006_hfd_rjh, STYLE_CELL);
+    text(sheetData, [ri + 6, 6], data.gzm1012006_hfd_rwc, STYLE_CELL);
+    text(sheetData, [ri + 6, 7], data.gzm1012006_hfd_ywc, STYLE_CELL);
+    text(sheetData, [ri + 6, 8], data.gzm1012006_hfd_lj, STYLE_CELL);
+    text(sheetData, [ri + 6, 9], data.gzm1012006_hfd_sy, STYLE_CELL);
+
+    text(sheetData, [ri + 7, 4], data.gzm1032101_hfrd_yjh, STYLE_CELL);
+    text(sheetData, [ri + 7, 5], data.gzm1032101_hfrd_rjh, STYLE_CELL);
+    text(sheetData, [ri + 7, 6], data.gzm1032101_hfrd_rwc, STYLE_CELL);
+    text(sheetData, [ri + 7, 7], data.gzm1032101_hfrd_ywc, STYLE_CELL);
+    text(sheetData, [ri + 7, 8], data.gzm1032101_hfrd_lj, STYLE_CELL);
+    text(sheetData, [ri + 7, 9], data.gzm1032101_hfrd_sy, STYLE_CELL);
+
+    text(sheetData, [ri + 8, 4], data.gzm1032102_hflx_yjh, STYLE_CELL);
+    text(sheetData, [ri + 8, 5], data.gzm1032102_hflx_rjh, STYLE_CELL);
+    text(sheetData, [ri + 8, 6], data.gzm1032102_hflx_rwc, STYLE_CELL);
+    text(sheetData, [ri + 8, 7], data.gzm1032102_hflx_ywc, STYLE_CELL);
+    text(sheetData, [ri + 8, 8], data.gzm1032102_hflx_lj, STYLE_CELL);
+    text(sheetData, [ri + 8, 9], data.gzm1032102_hflx_sy, STYLE_CELL);
+
+    text(sheetData, [ri + 9, 4], data.gzm1012007_jyx_yjh, STYLE_CELL);
+    text(sheetData, [ri + 9, 5], data.gzm1012007_jyx_rjh, STYLE_CELL);
+    text(sheetData, [ri + 9, 6], data.gzm1012007_jyx_rwc, STYLE_CELL);
+    text(sheetData, [ri + 9, 7], data.gzm1012007_jyx_ywc, STYLE_CELL);
+    text(sheetData, [ri + 9, 8], data.gzm1012007_jyx_lj, STYLE_CELL);
+    text(sheetData, [ri + 9, 9], data.gzm1012007_jyx_sy, STYLE_CELL);
+
+    text(sheetData, [ri + 10, 4], data.gzm1012007_hfx_yjh, STYLE_CELL);
+    text(sheetData, [ri + 10, 5], data.gzm1012007_hfx_rjh, STYLE_CELL);
+    text(sheetData, [ri + 10, 6], data.gzm1012007_hfx_rwc, STYLE_CELL);
+    text(sheetData, [ri + 10, 7], data.gzm1012007_hfx_ywc, STYLE_CELL);
+    text(sheetData, [ri + 10, 8], data.gzm1012007_hfx_lj, STYLE_CELL);
+    text(sheetData, [ri + 10, 9], data.gzm1012007_hfx_sy, STYLE_CELL);
+
+    text(sheetData, [ri + 11, 4], data.gzm1012007_gcx_yjh, STYLE_CELL);
+    text(sheetData, [ri + 11, 5], data.gzm1012007_gcx_rjh, STYLE_CELL);
+    text(sheetData, [ri + 11, 6], data.gzm1012007_gcx_rwc, STYLE_CELL);
+    text(sheetData, [ri + 11, 7], data.gzm1012007_gcx_ywc, STYLE_CELL);
+    text(sheetData, [ri + 11, 8], data.gzm1012007_gcx_lj, STYLE_CELL);
+    text(sheetData, [ri + 11, 9], data.gzm1012007_gcx_sy, STYLE_CELL);
+
+    text(sheetData, [ri + 12, 4], data.xydx_yhhfx_yjh, STYLE_CELL);
+    text(sheetData, [ri + 12, 5], data.xydx_yhhfx_rjh, STYLE_CELL);
+    text(sheetData, [ri + 12, 6], data.xydx_yhhfx_rwc, STYLE_CELL);
+    text(sheetData, [ri + 12, 7], data.xydx_yhhfx_ywc, STYLE_CELL);
+    text(sheetData, [ri + 12, 8], data.xydx_yhhfx_lj, STYLE_CELL);
+    text(sheetData, [ri + 12, 9], data.xydx_yhhfx_sy, STYLE_CELL);
+
+    text(sheetData, [ri + 13, 4], data.total_jjjchj_yjh, STYLE_CELL);
+    text(sheetData, [ri + 13, 5], data.total_jjjchj_rjh, STYLE_CELL);
+    text(sheetData, [ri + 13, 6], data.total_jjjchj_rwc, STYLE_CELL);
+    text(sheetData, [ri + 13, 7], data.total_jjjchj_ywc, STYLE_CELL);
+    text(sheetData, [ri + 13, 8], data.total_jjjchj_lj, STYLE_CELL);
+    text(sheetData, [ri + 13, 9], data.total_jjjchj_sy, STYLE_CELL);
+
+    ri += 14;
+    //钻孔施工
+    text(sheetData, [ri, 0, 0, 9], "其它安全生产情况", STYLE_CELL);
+    ri += 1;
+    text(sheetData, [ri, 0, 1, 0], "钻孔施工", STYLE_CELL);
+    text(sheetData, [ri, 1, 1, 8], data.zksg, STYLE_CELL);
+
+    //瓦斯抽放系统运行情况
+    text(sheetData, [ri + 2, 0, 2, 0], "瓦斯抽放系统运行情况", STYLE_CELL);
     text(
       sheetData,
-      [ri + 2, 9, 1, 3],
-      data.ccd_desc,
-      STYLE_CELL_LEFT
-    );
-    //通风队
-    text(sheetData, [ri + 4, 8], "通风队", STYLE_CELL);
-    text(sheetData, [ri + 4, 9], "通风系统", STYLE_CELL);
-    text(sheetData, [ri + 4, 10, 0, 2], data.tfd_desc, STYLE_CELL);
-    //运输队
-    text(sheetData, [ri + 5, 8], "运输队", STYLE_CELL);
-    text(sheetData, [ri + 5, 9], "运输系统", STYLE_CELL);
-    text(sheetData, [ri + 5, 10, 0, 2], data.ysd_desc, STYLE_CELL);
-    //机电队
-    text(sheetData, [ri + 6, 8, 3, 0], "机电队", STYLE_CELL);
-    text(sheetData, [ri + 6, 9], "提升系统", STYLE_CELL);
-    text(sheetData, [ri + 6, 10, 0, 2], data.jdd_tsxt, STYLE_CELL);
-    text(sheetData, [ri + 7, 9], "供电系统", STYLE_CELL);
-    text(sheetData, [ri + 7, 10, 0, 2], data.jdd_gdxt, STYLE_CELL);
-    text(sheetData, [ri + 8, 9, 1, 0], "排水系统", STYLE_CELL);
-    text(sheetData, [ri + 8, 10, 1, 2], data.jdd_psxt, STYLE_CELL);
-    //准备队
-    text(sheetData, [ri + 10, 8], "准备队", STYLE_CELL);
-    text(
-      sheetData,
-      [ri + 10, 9, 0, 3],
-      data.zbd_desc,
-      STYLE_CELL_LEFT
-    );
-    //东翼一号回风立井
-    text(sheetData, [ri + 11, 8], "东翼一号回风立井", STYLE_CELL);
-    text(
-      sheetData,
-      [ri + 11, 9, 0, 3],
-      data.dyyhhflj_desc,
-      STYLE_CELL_LEFT
-    );
-    ri += 12;
-    //生产影响
-    text(sheetData, [ri, 0], "序号", STYLE_CELL);
-    text(sheetData, [ri, 1, 0, 6], "生产影响", STYLE_CELL);
-    text(sheetData, [ri, 8], "责任人", STYLE_CELL);
-    text(sheetData, [ri, 9, 0, 3], "处理结果", STYLE_CELL);
-    ["1","2","3"].forEach((v,i) => {
-      text(sheetData, [ri + i + 1, 0], i + 1, STYLE_CELL);
-      text(sheetData, [ri + i + 1, 1, 0, 6], data[`scqk${v}_scyx`], STYLE_CELL_LEFT);
-      text(sheetData, [ri + i + 1, 8], data[`scqk${v}_zrr`], STYLE_CELL);
-      text(sheetData, [ri + i + 1, 9, 0, 3], data[`scqk${v}_cljg`], STYLE_CELL_LEFT);
-    });
-    ri += 1 + 3;
-    //备注
-    text(sheetData, [ri, 0], "备注", STYLE_CELL_LEFT);
-    text(
-      sheetData,
-      [ri, 1, 0, 11],
-      data.remark,
+      [ri + 2, 1, 0, 1],
+      "1012001工作面二号回风巷本煤层钻孔",
       STYLE_CELL
     );
-    ri += 1;
-    //备注
-    text(sheetData, [ri, 0, 0, 5], `值班领导：${data.tbrzbld}`, STYLE_NORMAL_LEFT);
-    text(sheetData, [ri, 6, 0, 2], `天气：${data.tbrtq}`, STYLE_NORMAL);
-    text(sheetData, [ri, 10, 0, 2], `日期：${data.tbrrq}`, STYLE_NORMAL_RIGHT);
+    text(
+      sheetData,
+      [ri + 2, 3, 0, 5],
+      `瓦斯抽采浓度 ${data.cc_gzm1012001_ehhfxbmczk_ccnd}%，混合流量${data.cc_gzm1012001_ehhfxbmczk_hhll}m³/min，日抽采量 ${data.cc_gzm1012001_ehhfxbmczk_rccl} m³，月累计 ${data.cc_gzm1012001_ehhfxbmczk_ccylj} m³。`,
+      STYLE_CELL
+    );
+    text(sheetData, [ri + 2, 9], "月累计抽采量（总）m³", STYLE_CELL);
+
+    text(sheetData, [ri + 3, 1, 0, 1], "1012001工作面高抽巷", STYLE_CELL);
+    text(
+      sheetData,
+      [ri + 3, 3, 0, 5],
+      `瓦斯抽采浓度 ${data.cc_gzm1012001_gcx_ccnd}%，混合流量${data.cc_gzm1012001_gcx_hhll}m³/min，日抽采量 ${data.cc_gzm1012001_gcx_rccl} m³，月累计 ${data.cc_gzm1012001_gcx_ccylj} m³。`,
+      STYLE_CELL
+    );
+    text(sheetData, [ri + 3, 9, 1, 0], data.total_cc_yljccl, STYLE_CELL);
+
+    text(sheetData, [ri + 4, 1, 0, 1], "1012001工作面上隅角", STYLE_CELL);
+    text(
+      sheetData,
+      [ri + 4, 3, 0, 5],
+      `瓦斯抽采浓度 ${data.cc_gzm1012001_syj_ccnd}%，混合流量${data.cc_gzm1012001_syj_hhll}m³/min，日抽采量 ${data.cc_gzm1012001_syj_rccl} m³，月累计 ${data.cc_gzm1012001_syj_ccylj} m³。`,
+      STYLE_CELL
+    );
+
+    ri += 5;
+
+    //防冲监测
+    text(sheetData, [ri, 0, 1, 0], "防冲监测", STYLE_CELL);
+    text(sheetData, [ri, 1, 1, 1], "1012001工作面", STYLE_CELL);
+    text(sheetData, [ri, 3], "微震事件频次", STYLE_CELL);
+    text(sheetData, [ri + 1, 3], data.fcjc_gzm1012001_wzsjpc, STYLE_CELL);
+    text(sheetData, [ri, 4], "最大能量（J）预警值：1.00E+04J", STYLE_CELL);
+    text(sheetData, [ri + 1, 4], data.fcjc_gzm1012001_zdnl, STYLE_CELL);
+    text(sheetData, [ri, 5], "总能量（J）预警值：2.50E+04J", STYLE_CELL);
+    text(sheetData, [ri + 1, 5], data.fcjc_gzm1012001_znl, STYLE_CELL);
+    text(
+      sheetData,
+      [ri, 6, 1, 0],
+      "应力监测预警值：（浅孔14MPa）（深孔16MPa）",
+      STYLE_CELL
+    );
+    text(sheetData, [ri, 7, 0, 1], "1012001胶带运输巷", STYLE_CELL);
+    text(sheetData, [ri, 9], data.fcjc_yljcyjz_1012001jdysx, STYLE_CELL);
+    text(sheetData, [ri + 1, 7, 0, 1], "1012001二号回风巷", STYLE_CELL);
+    text(sheetData, [ri + 1, 9], data.fcjc_yljcyjz_1012001ehhfx, STYLE_CELL);
+
+    ri += 2;
+
+    //瓦斯浓度（%）
+    text(sheetData, [ri, 0, 1, 0], "瓦斯浓度（%）", STYLE_CELL);
+    text(sheetData, [ri, 1, 0, 1], "1012001工作面", STYLE_CELL);
+    text(
+      sheetData,
+      [ri + 1, 1, 0, 1],
+      `① ${data.wsnd_gzm1012001.v1}  ② ${data.wsnd_gzm1012001.v2}  ③ ${data.wsnd_gzm1012001.v3}`,
+      STYLE_CELL
+    );
+    text(sheetData, [ri, 3, 0, 1], "1012001工作面上隅角", STYLE_CELL);
+    text(
+      sheetData,
+      [ri + 1, 3, 0, 1],
+      `① ${data.wsnd_gzm1012001_syj.v1}  ② ${data.wsnd_gzm1012001_syj.v2}  ③ ${data.wsnd_gzm1012001_syj.v3}`,
+      STYLE_CELL
+    );
+    text(sheetData, [ri, 5, 0, 1], "1012001回风巷", STYLE_CELL);
+    text(
+      sheetData,
+      [ri + 1, 5, 0, 1],
+      `① ${data.wsnd_gzm1012001_hfx.v1}  ② ${data.wsnd_gzm1012001_hfx.v2}  ③ ${data.wsnd_gzm1012001_hfx.v3}`,
+      STYLE_CELL
+    );
+    text(sheetData, [ri, 7, 0, 2], "1012001胶带运输巷", STYLE_CELL);
+    text(
+      sheetData,
+      [ri + 1, 7, 0, 2],
+      `① ${data.wsnd_gzm1012001_jdysx.v1}  ② ${data.wsnd_gzm1012001_jdysx.v2}  ③ ${data.wsnd_gzm1012001_jdysx.v3}`,
+      STYLE_CELL
+    );
+
+    ri += 2;
+    //基本建设
+    text(sheetData, [ri, 0, 1, 0], "基本建设", STYLE_CELL);
+    text(sheetData, [ri, 1, 0, 1], "物流中心", STYLE_CELL);
+    text(sheetData, [ri, 3, 0, 6], data.jbjs_wlzx, STYLE_CELL);
+    text(sheetData, [ri + 1, 1, 0, 1], "东翼一号回风立井", STYLE_CELL);
+    text(sheetData, [ri + 1, 3, 0, 6], data.jbjs_dyyhhflj, STYLE_CELL);
+
+    ri=2;
+
+    //三违
+    text(sheetData, [ri, 11, 5, 0], "当日一般三违（人次）", STYLE_CELL);
+    text(sheetData, [ri, 12, 5, 0], data.sw_drybsw, STYLE_CELL);
+    text(sheetData, [ri, 13, 5, 0], "当日严重三违（人次）", STYLE_CELL);
+    text(sheetData, [ri, 14, 5, 0], data.sw_dryzsw, STYLE_CELL);
+    text(sheetData, [ri, 15, 5, 1], "当日领导抓三违（人次）", STYLE_CELL);
+    text(sheetData, [ri, 17, 5, 0], data.sw_drldzsw, STYLE_CELL);
+
+    text(sheetData, [ri+6, 11, 5, 0], "当月一般三违（人次）", STYLE_CELL);
+    text(sheetData, [ri+6, 12, 5, 0], data.sw_dyybsw, STYLE_CELL);
+    text(sheetData, [ri+6, 13, 5, 0], "当月严重三违（人次）", STYLE_CELL);
+    text(sheetData, [ri+6, 14, 5, 0], data.sw_dyyzsw, STYLE_CELL);
+    text(sheetData, [ri+6, 15, 5, 1], "当月领导抓三违（人次）", STYLE_CELL);
+    text(sheetData, [ri+6, 17, 5, 0], data.sw_dyldzsw, STYLE_CELL);
+
+    ri+=12;
+
+    text(sheetData, [ri, 10, 6, 0], "三违主要内容及处罚情况", STYLE_CELL);
+    text(sheetData, [ri, 11, 6, 3], data.sw_zynrjcfqk, STYLE_CELL);
+
+    // text(sheetData, [ri + 2, 2, 0, 0], "1032101工作面回风巷", STYLE_CELL);
+    // text(
+    //   sheetData,
+    //   [ri + 2, 3, 0, 1],
+    //   `掘进${data.j1d_1032101hfx_rjj}米`,
+    //   STYLE_CELL
+    // );
+    // text(
+    //   sheetData,
+    //   [ri + 2, 5, 0, 2],
+    //   `月累计${data.j1d_1032101hfx_yjj}米`,
+    //   STYLE_CELL
+    // );
+    // text(sheetData, [ri + 3, 2], "1032102工作面回风联巷", STYLE_CELL);
+    // text(
+    //   sheetData,
+    //   [ri + 3, 3, 0, 1],
+    //   `掘进${data.j1d_1032102hflx_rjj}米`,
+    //   STYLE_CELL
+    // );
+    // text(
+    //   sheetData,
+    //   [ri + 3, 5, 0, 2],
+    //   `月累计${data.j1d_1032102hflx_yjj}米`,
+    //   STYLE_CELL
+    // );
+    // //掘三队
+    // text(sheetData, [ri + 4, 1, 1, 0], "掘三队", STYLE_CELL);
+    // text(sheetData, [ri + 4, 2, 0, 0], "1012006辅运绕道", STYLE_CELL);
+    // text(
+    //   sheetData,
+    //   [ri + 4, 3, 0, 1],
+    //   `掘进${data.j3d_1012006fyrd_rjj}米`,
+    //   STYLE_CELL
+    // );
+    // text(
+    //   sheetData,
+    //   [ri + 4, 5, 0, 2],
+    //   `月累计${data.j3d_1012006fyrd_yjj}米`,
+    //   STYLE_CELL
+    // );
+    // text(sheetData, [ri + 5, 2], "1012006回风道", STYLE_CELL);
+    // text(
+    //   sheetData,
+    //   [ri + 5, 3, 0, 1],
+    //   `掘进${data.j3d_1012006hfd_rjj}米`,
+    //   STYLE_CELL
+    // );
+    // text(
+    //   sheetData,
+    //   [ri + 5, 5, 0, 2],
+    //   `月累计${data.j3d_1012006hfd_yjj}米`,
+    //   STYLE_CELL
+    // );
+    // //重庆中环
+    // text(sheetData, [ri + 6, 1, 3, 0], "重庆中环", STYLE_CELL);
+    // text(sheetData, [ri + 6, 2, 0, 0], "2-1煤辅运联络巷", STYLE_CELL);
+    // text(
+    //   sheetData,
+    //   [ri + 6, 3, 0, 1],
+    //   `掘进${data.cqzh_21mfyllx_rjj}米`,
+    //   STYLE_CELL
+    // );
+    // text(
+    //   sheetData,
+    //   [ri + 6, 5, 0, 2],
+    //   `月累计${data.cqzh_21mfyllx_yjj}米`,
+    //   STYLE_CELL
+    // );
+    // text(sheetData, [ri + 7, 2], "东翼一号回风反掘", STYLE_CELL);
+    // text(
+    //   sheetData,
+    //   [ri + 7, 3, 0, 1],
+    //   `掘进${data.cqzh_dyyhhffj_rjj}米`,
+    //   STYLE_CELL
+    // );
+    // text(
+    //   sheetData,
+    //   [ri + 7, 5, 0, 2],
+    //   `月累计${data.cqzh_dyyhhffj_yjj}米`,
+    //   STYLE_CELL
+    // );
+    // text(sheetData, [ri + 8, 2], "1012007回风巷", STYLE_CELL);
+    // text(
+    //   sheetData,
+    //   [ri + 8, 3, 0, 1],
+    //   `掘进${data.cqzh_1012007hfx_rjj}米`,
+    //   STYLE_CELL
+    // );
+    // text(
+    //   sheetData,
+    //   [ri + 8, 5, 0, 2],
+    //   `月累计${data.cqzh_1012007hfx_yjj}米`,
+    //   STYLE_CELL
+    // );
+    // text(sheetData, [ri + 9, 2], "东翼一号辅运巷", STYLE_CELL);
+    // text(
+    //   sheetData,
+    //   [ri + 9, 3, 0, 1],
+    //   `掘进${data.cqzh_dyyhfyx_rjj}米`,
+    //   STYLE_CELL
+    // );
+    // text(
+    //   sheetData,
+    //   [ri + 9, 5, 0, 2],
+    //   `月累计${data.cqzh_dyyhfyx_yjj}米`,
+    //   STYLE_CELL
+    // );
+    // //中煤36处
+    // text(sheetData, [ri + 10, 1], "中煤36处", STYLE_CELL);
+    // text(sheetData, [ri + 10, 2], "1012007皮带巷", STYLE_CELL);
+    // text(
+    //   sheetData,
+    //   [ri + 10, 3, 0, 1],
+    //   `掘进${data.zm36c_1012007pdx_rjj}米`,
+    //   STYLE_CELL
+    // );
+    // text(
+    //   sheetData,
+    //   [ri + 10, 5, 0, 2],
+    //   `月累计${data.zm36c_1012007pdx_yjj}米`,
+    //   STYLE_CELL
+    // );
+    // //合计掘进进尺
+    // text(sheetData, [ri + 11, 1, 0, 1], "合计掘进进尺", STYLE_CELL);
+    // text(sheetData, [ri + 11, 3, 0, 1], `掘进${data.total_rjj}米`, STYLE_CELL);
+    // text(
+    //   sheetData,
+    //   [ri + 11, 5, 0, 2],
+    //   `月累计${data.total_yjj}米`,
+    //   STYLE_CELL
+    // );
+
+    // //抽采队
+    // text(sheetData, [ri, 8, 3, 0], "抽采队", STYLE_CELL);
+    // text(sheetData, [ri, 9, 1, 3], data.ccd_ccl, STYLE_CELL);
+    // text(sheetData, [ri + 2, 9, 1, 3], data.ccd_desc, STYLE_CELL_LEFT);
+    // //通风队
+    // text(sheetData, [ri + 4, 8], "通风队", STYLE_CELL);
+    // text(sheetData, [ri + 4, 9], "通风系统", STYLE_CELL);
+    // text(sheetData, [ri + 4, 10, 0, 2], data.tfd_desc, STYLE_CELL);
+    // //运输队
+    // text(sheetData, [ri + 5, 8], "运输队", STYLE_CELL);
+    // text(sheetData, [ri + 5, 9], "运输系统", STYLE_CELL);
+    // text(sheetData, [ri + 5, 10, 0, 2], data.ysd_desc, STYLE_CELL);
+    // //机电队
+    // text(sheetData, [ri + 6, 8, 3, 0], "机电队", STYLE_CELL);
+    // text(sheetData, [ri + 6, 9], "提升系统", STYLE_CELL);
+    // text(sheetData, [ri + 6, 10, 0, 2], data.jdd_tsxt, STYLE_CELL);
+    // text(sheetData, [ri + 7, 9], "供电系统", STYLE_CELL);
+    // text(sheetData, [ri + 7, 10, 0, 2], data.jdd_gdxt, STYLE_CELL);
+    // text(sheetData, [ri + 8, 9, 1, 0], "排水系统", STYLE_CELL);
+    // text(sheetData, [ri + 8, 10, 1, 2], data.jdd_psxt, STYLE_CELL);
+    // //准备队
+    // text(sheetData, [ri + 10, 8], "准备队", STYLE_CELL);
+    // text(sheetData, [ri + 10, 9, 0, 3], data.zbd_desc, STYLE_CELL_LEFT);
+    // //东翼一号回风立井
+    // text(sheetData, [ri + 11, 8], "东翼一号回风立井", STYLE_CELL);
+    // text(sheetData, [ri + 11, 9, 0, 3], data.dyyhhflj_desc, STYLE_CELL_LEFT);
+    // ri += 12;
+    // //生产影响
+    // text(sheetData, [ri, 0], "序号", STYLE_CELL);
+    // text(sheetData, [ri, 1, 0, 6], "生产影响", STYLE_CELL);
+    // text(sheetData, [ri, 8], "责任人", STYLE_CELL);
+    // text(sheetData, [ri, 9, 0, 3], "处理结果", STYLE_CELL);
+    // ["1", "2", "3"].forEach((v, i) => {
+    //   text(sheetData, [ri + i + 1, 0], i + 1, STYLE_CELL);
+    //   text(
+    //     sheetData,
+    //     [ri + i + 1, 1, 0, 6],
+    //     data[`scqk${v}_scyx`],
+    //     STYLE_CELL_LEFT
+    //   );
+    //   text(sheetData, [ri + i + 1, 8], data[`scqk${v}_zrr`], STYLE_CELL);
+    //   text(
+    //     sheetData,
+    //     [ri + i + 1, 9, 0, 3],
+    //     data[`scqk${v}_cljg`],
+    //     STYLE_CELL_LEFT
+    //   );
+    // });
+    // ri += 1 + 3;
+    // //备注
+    // text(sheetData, [ri, 0], "备注", STYLE_CELL_LEFT);
+    // text(sheetData, [ri, 1, 0, 11], data.remark, STYLE_CELL);
+    // ri += 1;
+    // //备注
+    // text(
+    //   sheetData,
+    //   [ri, 0, 0, 5],
+    //   `值班领导：${data.tbrzbld}`,
+    //   STYLE_NORMAL_LEFT
+    // );
+    // text(sheetData, [ri, 6, 0, 2], `天气：${data.tbrtq}`, STYLE_NORMAL);
+    // text(sheetData, [ri, 10, 0, 2], `日期：${data.tbrrq}`, STYLE_NORMAL_RIGHT);
 
     sheetData["!ref"] = `A1:${XLSX.utils.encode_cell({
-      r: ri,
-      c: COL_SIZE,
+      r: 42,
+      c: colSize,
     })}`;
     wb.Sheets["Sheet1"] = sheetData;
     saveAs(
@@ -695,10 +1125,6 @@
         (wopts.bookType == "biff2" ? "xls" : wopts.bookType)
     );
   };
-
-
-
-
 })();
 
 function text(data, cellIndex, text, s) {
