@@ -2260,14 +2260,14 @@ export default {
                     {
                         group: "生产系统运行情况",
                         label: "提升系统",
-                        name: "jdd_tsxt",
+                        name: "scxt_tsxt",
                         widget: "input",
                         style: "width:630px;",
                         placeholder: "请输入工作详情"
                     },
                     {
                         label: "通风系统",
-                        name: "tfd_desc",
+                        name: "scxt_tfxt",
                         widget: "input",
                         newline: true,
                         style: "width:630px;",
@@ -2275,7 +2275,7 @@ export default {
                     },
                     {
                         label: "供电系统",
-                        name: "jdd_gdxt",
+                        name: "scxt_gdxt",
                         widget: "input",
                         newline: true,
                         style: "width:630px;",
@@ -2283,7 +2283,7 @@ export default {
                     },
                     {
                         label: "运输系统",
-                        name: "ysd_desc",
+                        name: "scxt_ysxt",
                         widget: "input",
                         newline: true,
                         style: "width:630px;",
@@ -2291,7 +2291,7 @@ export default {
                     },
                     {
                         label: "排水系统",
-                        name: "jdd_psxt",
+                        name: "scxt_psxt",
                         widget: "input",
                         newline: true,
                         style: "width:630px;",
@@ -2547,7 +2547,7 @@ export default {
     }
     .xui-input.xui-input-style.xui-input-manner-juejinylj {
         .xui-input-inner {
-            padding: 0px 40px 0px 0px;
+            padding: 0px 40px 0px 60px;
         }
         .xui-input-wrap {
             & > div {

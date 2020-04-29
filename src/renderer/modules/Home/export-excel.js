@@ -55,21 +55,21 @@
     },
   };
 
-  var STYLE_NORMAL = {
+  var STYLE_SUB_TEXT = {
     font: { name: "宋体", sz: 20, color: { rgb: "000000" } },
     alignment: {
       vertical: "center",
       horizontal: "center",
     },
   };
-  var STYLE_NORMAL_LEFT = {
+  var STYLE_SUB_TEXT_LEFT = {
     font: STYLE_FONT_TEXT,
     alignment: {
       vertical: "center",
       horizontal: "left",
     },
   };
-  var STYLE_NORMAL_RIGHT = {
+  var STYLE_SUB_TEXT_RIGHT = {
     font: STYLE_FONT_TEXT,
     alignment: {
       vertical: "center",
@@ -168,9 +168,9 @@
       { hpt: 24 },
       { hpt: 24 },
       { hpt: 37 },
-      { hpt: 37 },
-      { hpt: 55 },
-      { hpt: 55 },
+      { hpt: 40 },
+      { hpt: 65 },
+      { hpt: 65 },
       { hpt: 55 },
       { hpt: 55 },
       { hpt: 55 },
@@ -180,24 +180,34 @@
       { hpt: 55 },
       { hpt: 55 },
       { hpt: 40 },
-      { hpt: 45 },
-      { hpt: 45 },
-      { hpt: 45 },
-      { hpt: 45 },
+      { hpt: 48 },
+      { hpt: 48 },
+      { hpt: 48 },
+      { hpt: 48 },
       { hpt: 38 },
     ];
     //标题
-    text(sheetData, [ri, 0, ri, colSize], data.title, STYLE_TITLE);
+    text(
+      sheetData,
+      [ri, 0, ri, colSize],
+      data.title.split("").join(" "),
+      STYLE_TITLE
+    );
     ri++;
     //值班领导
     text(
       sheetData,
       [ri, 0, 0, 4],
       `  值班领导：${data.gzrzbld}`,
-      STYLE_NORMAL_LEFT
+      STYLE_SUB_TEXT_LEFT
     );
-    text(sheetData, [ri, 6, 0, 2], `天气：${data.gzrtq}`, STYLE_NORMAL);
-    text(sheetData, [ri, 10, 0, 2], `日期：${data.gzrrq}`, STYLE_NORMAL_RIGHT);
+    text(sheetData, [ri, 6, 0, 2], `天气：${data.gzrtq}`, STYLE_SUB_TEXT);
+    text(
+      sheetData,
+      [ri, 10, 0, 2],
+      `日期：${data.gzrrq}`,
+      STYLE_SUB_TEXT_RIGHT
+    );
     ri++;
     text(sheetData, [ri, 0, 16, 0], `生产情况`, STYLE_CELL_VERT);
     //产销量
@@ -205,7 +215,7 @@
     text(
       sheetData,
       [ri, 2, 0, 1],
-      `   品种                                        产量`,
+      `   品种                产量`,
       STYLE_CELL_XX
     );
     text(sheetData, [ri, 4, 0, 1], `日产量（t）`, STYLE_CELL);
@@ -466,18 +476,23 @@
     });
     ri += 1 + 3;
     //备注
-    text(sheetData, [ri, 0], "备注", STYLE_CELL_LEFT);
-    text(sheetData, [ri, 1, 0, 11], data.remark, STYLE_CELL);
+    text(sheetData, [ri, 0], "备注", STYLE_CELL);
+    text(sheetData, [ri, 1, 0, 11], data.remark, STYLE_CELL_LEFT);
     ri += 1;
     //备注
     text(
       sheetData,
       [ri, 0, 0, 5],
       `值班领导：${data.tbrzbld}`,
-      STYLE_NORMAL_LEFT
+      STYLE_SUB_TEXT_LEFT
     );
-    text(sheetData, [ri, 6, 0, 2], `天气：${data.tbrtq}`, STYLE_NORMAL);
-    text(sheetData, [ri, 10, 0, 2], `日期：${data.tbrrq}`, STYLE_NORMAL_RIGHT);
+    text(sheetData, [ri, 6, 0, 2], `天气：${data.tbrtq}`, STYLE_SUB_TEXT);
+    text(
+      sheetData,
+      [ri, 10, 0, 2],
+      `日期：${data.tbrrq}`,
+      STYLE_SUB_TEXT_RIGHT
+    );
 
     sheetData["!ref"] = `A1:${XLSX.utils.encode_cell({
       r: ri,
@@ -488,7 +503,7 @@
       new Blob([s2ab(XLSX.write(wb, wopts))], {
         type: "application/octet-stream",
       }),
-      "这里是下载的文件名" +
+      `${data.gzrrq}生产日报表（投屏）` +
         "." +
         (wopts.bookType == "biff2" ? "xls" : wopts.bookType)
     );
@@ -580,10 +595,15 @@
       sheetData,
       [ri, 0, 0, 4],
       `  123值班领导：${data.gzrzbld}`,
-      STYLE_NORMAL_LEFT
+      STYLE_SUB_TEXT_LEFT
     );
-    text(sheetData, [ri, 6, 0, 3], `天气：${data.gzrtq}`, STYLE_NORMAL);
-    text(sheetData, [ri, 15, 0, 2], `日期：${data.gzrrq}`, STYLE_NORMAL_RIGHT);
+    text(sheetData, [ri, 6, 0, 3], `天气：${data.gzrtq}`, STYLE_SUB_TEXT);
+    text(
+      sheetData,
+      [ri, 15, 0, 2],
+      `日期：${data.gzrrq}`,
+      STYLE_SUB_TEXT_RIGHT
+    );
     ri++;
     //产销量
     text(sheetData, [ri, 0, 8, 0], `产销量`, STYLE_CELL);
@@ -893,7 +913,7 @@
     text(sheetData, [ri + 1, 1, 0, 1], "东翼一号回风立井", STYLE_CELL);
     text(sheetData, [ri + 1, 3, 0, 6], data.jbjs_dyyhhflj, STYLE_CELL);
 
-    ri=2;
+    ri = 2;
 
     //三违
     text(sheetData, [ri, 11, 5, 0], "当日一般三违（人次）", STYLE_CELL);
@@ -903,17 +923,84 @@
     text(sheetData, [ri, 15, 5, 1], "当日领导抓三违（人次）", STYLE_CELL);
     text(sheetData, [ri, 17, 5, 0], data.sw_drldzsw, STYLE_CELL);
 
-    text(sheetData, [ri+6, 11, 5, 0], "当月一般三违（人次）", STYLE_CELL);
-    text(sheetData, [ri+6, 12, 5, 0], data.sw_dyybsw, STYLE_CELL);
-    text(sheetData, [ri+6, 13, 5, 0], "当月严重三违（人次）", STYLE_CELL);
-    text(sheetData, [ri+6, 14, 5, 0], data.sw_dyyzsw, STYLE_CELL);
-    text(sheetData, [ri+6, 15, 5, 1], "当月领导抓三违（人次）", STYLE_CELL);
-    text(sheetData, [ri+6, 17, 5, 0], data.sw_dyldzsw, STYLE_CELL);
+    text(sheetData, [ri + 6, 11, 4, 0], "当月一般三违（人次）", STYLE_CELL);
+    text(sheetData, [ri + 6, 12, 4, 0], data.sw_dyybsw, STYLE_CELL);
+    text(sheetData, [ri + 6, 13, 4, 0], "当月严重三违（人次）", STYLE_CELL);
+    text(sheetData, [ri + 6, 14, 4, 0], data.sw_dyyzsw, STYLE_CELL);
+    text(sheetData, [ri + 6, 15, 4, 1], "当月领导抓三违（人次）", STYLE_CELL);
+    text(sheetData, [ri + 6, 17, 4, 0], data.sw_dyldzsw, STYLE_CELL);
 
-    ri+=12;
+    ri += 11;
 
     text(sheetData, [ri, 10, 6, 0], "三违主要内容及处罚情况", STYLE_CELL);
     text(sheetData, [ri, 11, 6, 3], data.sw_zynrjcfqk, STYLE_CELL);
+
+    text(sheetData, [ri, 15, 0, 2], "当日领导带班", STYLE_CELL);
+    text(sheetData, [ri + 1, 15], "零点班", STYLE_CELL);
+    text(sheetData, [ri + 1, 16], "八点班", STYLE_CELL);
+    text(sheetData, [ri + 1, 17], "四点班", STYLE_CELL);
+    text(sheetData, [ri + 2, 15], data.drlddb_ldb, STYLE_CELL);
+    text(sheetData, [ri + 2, 16], data.drlddb_bdb, STYLE_CELL);
+    text(sheetData, [ri + 2, 17], data.drlddb_sdb, STYLE_CELL);
+
+    text(sheetData, [ri + 3, 15, 0, 2], "当日领导带班", STYLE_CELL);
+    text(sheetData, [ri + 5, 15], "零点班", STYLE_CELL);
+    text(sheetData, [ri + 5, 16], "八点班", STYLE_CELL);
+    text(sheetData, [ri + 5, 17], "四点班", STYLE_CELL);
+    text(sheetData, [ri + 6, 15], data.jrlddb_ldb, STYLE_CELL);
+    text(sheetData, [ri + 6, 16], data.jrlddb_bdb, STYLE_CELL);
+    text(sheetData, [ri + 6, 17], data.jrlddb_sdb, STYLE_CELL);
+
+    ri += 7;
+
+    text(sheetData, [ri, 11, 0, 1], "一般隐患（条）", STYLE_CELL);
+    text(sheetData, [ri, 13], data.yh_ybyh, STYLE_CELL);
+    text(sheetData, [ri, 14, 0, 2], "重大隐患（条）", STYLE_CELL);
+    text(sheetData, [ri, 17], data.yh_zdyh, STYLE_CELL);
+    text(sheetData, [ri + 1, 11, 5, 6], data.yh_desc, STYLE_CELL);
+
+    ri += 7;
+
+    text(sheetData, [ri, 10, 5, 0], "生产系统运行情况", STYLE_CELL);
+    text(sheetData, [ri, 11], "提升系统", STYLE_CELL);
+    text(sheetData, [ri, 12, 0, 5], data.scxt_tsxt, STYLE_CELL);
+    text(sheetData, [ri + 1, 11], "通风系统", STYLE_CELL);
+    text(sheetData, [ri + 1, 12, 0, 5], data.scxt_tfxt, STYLE_CELL);
+    text(sheetData, [ri + 2, 11], "供电系统", STYLE_CELL);
+    text(sheetData, [ri + 2, 12, 0, 5], data.scxt_gdxt, STYLE_CELL);
+    text(sheetData, [ri + 3, 11, 1, 0], "运输系统", STYLE_CELL);
+    text(sheetData, [ri + 3, 12, 1, 5], data.scxt_ysxt, STYLE_CELL);
+    text(sheetData, [ri + 5, 11], "排水系统", STYLE_CELL);
+    text(sheetData, [ri + 5, 12, 0, 5], data.scxt_psxt, STYLE_CELL);
+
+    ri += 6;
+
+    text(sheetData, [ri, 10, 0, 6], "生产影响", STYLE_CELL);
+    text(sheetData, [ri, 17], "责任人", STYLE_CELL);
+    [1, 2, 3, 4, 5].forEach((i) => {
+      text(sheetData, [ri + i, 10], i + "", STYLE_CELL);
+      text(sheetData, [ri + i, 11, 0, 5], data[`scqk${i}_scyx`], STYLE_CELL);
+      text(sheetData, [ri + i, 17], data[`scqk${i}_zrr`], STYLE_CELL);
+    });
+
+    ri += 6;
+
+    text(sheetData, [ri, 0, 0, 2], "当日安全重点工作", STYLE_CELL);
+    text(sheetData, [ri, 3, 0, 14], data.draqzdgz, STYLE_CELL);
+    text(sheetData, [ri + 1, 0, 0, 2], "备   注", STYLE_CELL);
+    text(sheetData, [ri + 1, 3, 0, 14], data.remark, STYLE_CELL);
+
+    ri += 2;
+
+    //end
+    text(sheetData, [ri, 0, 0, 5], `审核：${data.tbrsh}`, STYLE_SUB_TEXT_LEFT);
+    text(sheetData, [ri, 6, 0, 2], `制表：${data.tbrzb}`, STYLE_SUB_TEXT);
+    text(
+      sheetData,
+      [ri, 10, 0, 2],
+      `日期：${data.tbrrq}`,
+      STYLE_SUB_TEXT_RIGHT
+    );
 
     // text(sheetData, [ri + 2, 2, 0, 0], "1032101工作面回风巷", STYLE_CELL);
     // text(
@@ -1106,10 +1193,10 @@
     //   sheetData,
     //   [ri, 0, 0, 5],
     //   `值班领导：${data.tbrzbld}`,
-    //   STYLE_NORMAL_LEFT
+    //   STYLE_SUB_TEXT_LEFT
     // );
-    // text(sheetData, [ri, 6, 0, 2], `天气：${data.tbrtq}`, STYLE_NORMAL);
-    // text(sheetData, [ri, 10, 0, 2], `日期：${data.tbrrq}`, STYLE_NORMAL_RIGHT);
+    // text(sheetData, [ri, 6, 0, 2], `天气：${data.tbrtq}`, STYLE_SUB_TEXT);
+    // text(sheetData, [ri, 10, 0, 2], `日期：${data.tbrrq}`, STYLE_SUB_TEXT_RIGHT);
 
     sheetData["!ref"] = `A1:${XLSX.utils.encode_cell({
       r: 42,
@@ -1170,15 +1257,13 @@ function merge(data, range) {
   });
 }
 
-$excel.exportWb = function(wb) {
+$excel.exportWb = function(filename, wb) {
   var wopts = { bookType: "xlsx", bookSST: false, type: "binary" }; //这里的数据是用来定义导出的格式类型
   saveAs(
     new Blob([s2ab(XLSX.write(wb, wopts))], {
       type: "application/octet-stream",
     }),
-    "这里是下载的文件名" +
-      "." +
-      (wopts.bookType == "biff2" ? "xls" : wopts.bookType)
+    filename + "." + (wopts.bookType == "biff2" ? "xls" : wopts.bookType)
   );
 };
 
