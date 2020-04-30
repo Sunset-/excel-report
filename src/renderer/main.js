@@ -13,7 +13,7 @@ import "./style/index.less";
 import NetPosaXUI from "./netposa_xui/index.js";
 Vue.use(NetPosaXUI);
 
-import "./components/index.js";
+// import "./components/index.js";
 
 if (!process.env.IS_WEB) Vue.use(require("vue-electron"));
 Vue.http = Vue.prototype.$http = axios;

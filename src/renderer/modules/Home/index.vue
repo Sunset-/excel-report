@@ -12,10 +12,12 @@
                 <xui-form v-show="component&&component.reportType==2" ref="form2" :options="formBOptions" @submit="save"></xui-form>
             </div>
         </div>
+        <dict-component ref="dict" @refresh="refreshDict"></dict-component>
     </div>
 </template>
 <script>
 import HomeComponents from "./components";
+import DictComponent from "./dict";
 import Store from "./store.js";
 import "./export-excel";
 
@@ -40,7 +42,8 @@ function fixed(v, d) {
 
 export default {
     components: {
-        HomeComponents
+        HomeComponents,
+        DictComponent
     },
     computed: {
         title() {
@@ -54,6 +57,7 @@ export default {
     },
     data() {
         return {
+            dict: {},
             component: {},
             currentTab: "DEFINE",
             tabOptions: {
@@ -66,6 +70,27 @@ export default {
             },
             toolbarOptions: {
                 tools: [
+                    {
+                        label: "基于此报表生成上报报表",
+                        icon: "xui-icon xui-icon-refresh",
+                        color: "primary",
+                        premise: () => {
+                            return this.component.reportType == 1;
+                        },
+                        operate: () => {
+                            this.$refs.components.editComponent(
+                                this.fromReportAToReportB(this.component)
+                            );
+                        }
+                    },
+                    {
+                        label: "维护字典",
+                        icon: "xui-icon xui-icon-refresh",
+                        color: "primary",
+                        operate: () => {
+                            this.$refs.dict.open();
+                        }
+                    },
                     {
                         label: "还原",
                         icon: "xui-icon xui-icon-refresh",
@@ -115,7 +140,18 @@ export default {
                     {
                         label: "工作日值班领导",
                         name: "gzrzbld",
-                        widget: "input",
+                        widget: "checkbox",
+                        $dict: "DICT_PERSON",
+                        data: () => {
+                            return Store.getDict("DICT_PERSON").then(list =>
+                                list.map(item => ({
+                                    text: item,
+                                    value: item
+                                }))
+                            );
+                        },
+                        monopolize: true,
+                        style: "width:630px;",
                         newline: true,
                         placeholder: "请输入值班领导"
                     },
@@ -136,7 +172,18 @@ export default {
                     {
                         label: "填表日值班领导",
                         name: "tbrzbld",
-                        widget: "input",
+                        widget: "checkbox",
+                        $dict: "DICT_PERSON",
+                        data: () => {
+                            return Store.getDict("DICT_PERSON").then(list =>
+                                list.map(item => ({
+                                    text: item,
+                                    value: item
+                                }))
+                            );
+                        },
+                        monopolize: true,
+                        style: "width:630px;",
                         newline: true,
                         placeholder: "请输入值班领导"
                     },
@@ -771,7 +818,18 @@ export default {
                     {
                         label: "工作日值班领导",
                         name: "gzrzbld",
-                        widget: "input",
+                        widget: "checkbox",
+                        $dict: "DICT_PERSON",
+                        data: () => {
+                            return Store.getDict("DICT_PERSON").then(list =>
+                                list.map(item => ({
+                                    text: item,
+                                    value: item
+                                }))
+                            );
+                        },
+                        monopolize: true,
+                        style: "width:630px;",
                         newline: true,
                         placeholder: "请输入值班领导"
                     },
@@ -786,14 +844,36 @@ export default {
                     {
                         label: "审核",
                         name: "tbrsh",
-                        widget: "input",
+                        widget: "checkbox",
+                        $dict: "DICT_PERSON",
+                        data: () => {
+                            return Store.getDict("DICT_PERSON").then(list =>
+                                list.map(item => ({
+                                    text: item,
+                                    value: item
+                                }))
+                            );
+                        },
+                        monopolize: true,
+                        style: "width:630px;",
                         newline: true,
                         placeholder: "请输入填表日天气"
                     },
                     {
                         label: "制表",
                         name: "tbrzb",
-                        widget: "input",
+                        widget: "checkbox",
+                        $dict: "DICT_PERSON",
+                        data: () => {
+                            return Store.getDict("DICT_PERSON").then(list =>
+                                list.map(item => ({
+                                    text: item,
+                                    value: item
+                                }))
+                            );
+                        },
+                        monopolize: true,
+                        style: "width:630px;",
                         placeholder: "请输入值班领导"
                     },
                     {
@@ -2022,17 +2102,17 @@ export default {
                         widgets: [
                             {
                                 widget: "input",
-                                name : "v1",
+                                name: "v1",
                                 clearable: false
                             },
                             {
                                 widget: "input",
-                                name : "v2",
+                                name: "v2",
                                 clearable: false
                             },
                             {
                                 widget: "input",
-                                name : "v3",
+                                name: "v3",
                                 clearable: false
                             }
                         ],
@@ -2048,17 +2128,17 @@ export default {
                         widgets: [
                             {
                                 widget: "input",
-                                name : "v1",
+                                name: "v1",
                                 clearable: false
                             },
                             {
                                 widget: "input",
-                                name : "v2",
+                                name: "v2",
                                 clearable: false
                             },
                             {
                                 widget: "input",
-                                name : "v3",
+                                name: "v3",
                                 clearable: false
                             }
                         ],
@@ -2074,17 +2154,17 @@ export default {
                         widgets: [
                             {
                                 widget: "input",
-                                name : "v1",
+                                name: "v1",
                                 clearable: false
                             },
                             {
                                 widget: "input",
-                                name : "v2",
+                                name: "v2",
                                 clearable: false
                             },
                             {
                                 widget: "input",
-                                name : "v3",
+                                name: "v3",
                                 clearable: false
                             }
                         ],
@@ -2100,17 +2180,17 @@ export default {
                         widgets: [
                             {
                                 widget: "input",
-                                name : "v1",
+                                name: "v1",
                                 clearable: false
                             },
                             {
                                 widget: "input",
-                                name : "v2",
+                                name: "v2",
                                 clearable: false
                             },
                             {
                                 widget: "input",
-                                name : "v3",
+                                name: "v3",
                                 clearable: false
                             }
                         ],
@@ -2133,7 +2213,7 @@ export default {
                         widget: "textarea",
                         rows: 3,
                         style: "width:630px;",
-                        newline : true,
+                        newline: true,
                         clearable: false,
                         placeholder: "请输入"
                     },
@@ -2192,21 +2272,57 @@ export default {
                         group: "<span class='sub-group'> - 当日领导带班</span>",
                         label: "零点班",
                         name: "drlddb_ldb",
-                        widget: "input",
+
+                        widget: "checkbox",
+                        $dict: "DICT_PERSON",
+                        data: () => {
+                            return Store.getDict("DICT_PERSON").then(list =>
+                                list.map(item => ({
+                                    text: item,
+                                    value: item
+                                }))
+                            );
+                        },
+                        monopolize: true,
+                        style: "width:630px;",
                         clearable: false,
                         placeholder: "请输入"
                     },
                     {
                         label: "八点班",
                         name: "drlddb_bdb",
-                        widget: "input",
+
+                        widget: "checkbox",
+                        $dict: "DICT_PERSON",
+                        data: () => {
+                            return Store.getDict("DICT_PERSON").then(list =>
+                                list.map(item => ({
+                                    text: item,
+                                    value: item
+                                }))
+                            );
+                        },
+                        monopolize: true,
+                        style: "width:630px;",
                         clearable: false,
                         placeholder: "请输入"
                     },
                     {
                         label: "四点班",
                         name: "drlddb_sdb",
-                        widget: "input",
+
+                        widget: "checkbox",
+                        $dict: "DICT_PERSON",
+                        data: () => {
+                            return Store.getDict("DICT_PERSON").then(list =>
+                                list.map(item => ({
+                                    text: item,
+                                    value: item
+                                }))
+                            );
+                        },
+                        monopolize: true,
+                        style: "width:630px;",
                         clearable: false,
                         placeholder: "请输入"
                     },
@@ -2214,21 +2330,57 @@ export default {
                         group: "<span class='sub-group'> - 今日领导带班</span>",
                         label: "零点班",
                         name: "jrlddb_ldb",
-                        widget: "input",
+
+                        widget: "checkbox",
+                        $dict: "DICT_PERSON",
+                        data: () => {
+                            return Store.getDict("DICT_PERSON").then(list =>
+                                list.map(item => ({
+                                    text: item,
+                                    value: item
+                                }))
+                            );
+                        },
+                        monopolize: true,
+                        style: "width:630px;",
                         clearable: false,
                         placeholder: "请输入"
                     },
                     {
                         label: "八点班",
                         name: "jrlddb_bdb",
-                        widget: "input",
+
+                        widget: "checkbox",
+                        $dict: "DICT_PERSON",
+                        data: () => {
+                            return Store.getDict("DICT_PERSON").then(list =>
+                                list.map(item => ({
+                                    text: item,
+                                    value: item
+                                }))
+                            );
+                        },
+                        monopolize: true,
+                        style: "width:630px;",
                         clearable: false,
                         placeholder: "请输入"
                     },
                     {
                         label: "四点班",
                         name: "jrlddb_sdb",
-                        widget: "input",
+
+                        widget: "checkbox",
+                        $dict: "DICT_PERSON",
+                        data: () => {
+                            return Store.getDict("DICT_PERSON").then(list =>
+                                list.map(item => ({
+                                    text: item,
+                                    value: item
+                                }))
+                            );
+                        },
+                        monopolize: true,
+                        style: "width:630px;",
                         clearable: false,
                         placeholder: "请输入"
                     },
@@ -2252,7 +2404,7 @@ export default {
                         name: "yh_desc",
                         widget: "textarea",
                         rows: 4,
-                        newline : true,
+                        newline: true,
                         clearable: false,
                         style: "width:630px;",
                         placeholder: "请输入"
@@ -2409,23 +2561,128 @@ export default {
                 this.$refs[`form${component.reportType}`].reset(component);
             });
         },
+        refreshDict() {
+            [1, 2].forEach(i => {
+                var form = this.$refs[`form${i}`];
+                if (form && form.$refs.fields) {
+                    form.$refs.fields.forEach(f => {
+                        if (f.options.$dict) {
+                            f.$refs.widget && f.$refs.widget.init();
+                        }
+                    });
+                }
+            });
+        },
         reset() {
             this.$refs[`form${this.rawModel.reportType}`].reset(this.rawModel);
         },
         save(data) {
             data.updateTime = Date.now();
-            Store.save(data).then(() => {
-                $tip("保存成功", "success");
-                this.rawModel = JSON.parse(JSON.stringify(data));
-                this.$refs.components.refresh();
+            this.formatModel(data).then(model => {
+                Store.save(data).then(allRes => {
+                    $tip("保存成功", "success");
+                    this.rawModel = JSON.parse(JSON.stringify(data));
+                    this.$refs.components.refresh();
+                });
+            });
+        },
+        formatModel(model) {
+            return Store.getDict().then(dict => {
+                var fields = this[
+                    model.reportType == 1 ? "formAOptions" : "formBOptions"
+                ].fields;
+                var dictMap = {};
+                Object.keys(dict).forEach(key => {
+                    dictMap[key] = {};
+                    if (dict[key] && Sunset.isArray(dict[key])) {
+                        dict[key].forEach(t => {
+                            dictMap[key][t] = true;
+                        });
+                    }
+                });
+                fields.forEach(item => {
+                    if (item.$dict) {
+                        var dm = dictMap[item.$dict];
+                        if (model[item.name]) {
+                            model[item.name] = model[item.name]
+                                .split(",")
+                                .filter(v => dm[v])
+                                .join(",");
+                        }
+                    }
+                });
+                return model;
             });
         },
         export() {
             this.$refs[`form${this.component.reportType}`]
                 .getValidateModel()
                 .then(res => {
-                    $excel[`exportReport${this.component.reportType==1?'A':'B'}`](res);
+                    this.formatModel(res).then(model => {
+                        $excel[
+                            `exportReport${model.reportType == 1 ? "A" : "B"}`
+                        ](model);
+                    });
                 });
+        },
+        fromReportAToReportB(model) {
+            return {
+                title: "园子沟煤矿安全生产信息日报表",
+                createTime: Date.now(),
+                updateTime: Date.now(),
+                reportType: 2,
+
+                gzrrq: model.gzrrq,
+                gzrtq: model.gzrtq,
+                gzrzbld: model.gzrzbld,
+                tbrrq: model.tbrrq,
+
+                zcd_work: model.zcd_work,
+                zcd_desc: model.zcd_desc,
+
+                zksg: model.ccd_desc,
+
+                dyyhhflj_desc: model.dyyhhflj_desc,
+
+                scxt_tfxt: model.tfd_desc,
+                scxt_ysxt: model.ysd_desc,
+                scxt_tsxt: model.jdd_tsxt,
+                scxt_gdxt: model.jdd_gdxt,
+                scxt_psxt: model.jdd_psxt,
+
+                ym_rc: model.ym_rc,
+                ym_ylj: model.ym_ylj,
+                rxl_rc: model.rxl_rc,
+                rxl_ylj: model.rxl_ylj,
+                jm_rc: model.jm_rc,
+                jm_ylj: model.jm_ylj,
+                shm_rc: model.shm_rc,
+                shm_ylj: model.shm_ylj,
+
+                ym_rxl: model.ym_rxl,
+                ym_yxl: model.ym_yxl,
+                ym_kc: model.ym_kc,
+                shm_rxl: model.shm_rxl,
+                shm_yxl: model.shm_yxl,
+                shm_kc: model.shm_kc,
+                mjm_rxl: model.mjm_rxl,
+                mjm_yxl: model.mjm_yxl,
+                mjm_kc: model.mjm_kc,
+                zm_rxl: model.zm_rxl,
+                zm_yxl: model.zm_yxl,
+                sbkm_rxl: model.sbkm_rxl,
+                sbkm_yxl: model.sbkm_yxl,
+                dk_rxl: model.dk_rxl,
+                dk_yxl: model.dk_yxl,
+                zm_sbkm_dk_kc: model.zm_sbkm_dk_kc,
+
+                scqk1_scyx: model.scqk1_scyx,
+                scqk1_zrr: model.scqk1_zrr,
+                scqk2_scyx: model.scqk2_scyx,
+                scqk2_zrr: model.scqk2_zrr,
+                scqk3_scyx: model.scqk3_scyx,
+                scqk3_zrr: model.scqk3_zrr
+            };
         }
     }
 };
@@ -2638,8 +2895,8 @@ export default {
     }
 
     .xui-widgets.xui-widgets-style.xui-field-widget-component.xui-widgets-manner-widget-wsnd {
-        .xui-widgets-item:nth-child(1){
-            .xui-input.xui-input-style  .xui-input-wrap {
+        .xui-widgets-item:nth-child(1) {
+            .xui-input.xui-input-style .xui-input-wrap {
                 & > div {
                     &:before {
                         content: "①";
@@ -2647,7 +2904,7 @@ export default {
                 }
             }
         }
-        .xui-widgets-item:nth-child(2){
+        .xui-widgets-item:nth-child(2) {
             .xui-input.xui-input-style .xui-input-wrap {
                 & > div {
                     &:before {
@@ -2656,7 +2913,7 @@ export default {
                 }
             }
         }
-        .xui-widgets-item:nth-child(3){
+        .xui-widgets-item:nth-child(3) {
             .xui-input.xui-input-style .xui-input-wrap {
                 & > div {
                     &:before {

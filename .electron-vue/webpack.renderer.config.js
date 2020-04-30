@@ -54,7 +54,10 @@ let rendererConfig = {
       {
         test: /\.js$/,
         use: 'babel-loader',
-        exclude: /node_modules/
+        exclude: [
+          /node_modules/,
+          path.resolve(__dirname, "../src/renderer/vendor"),
+        ],
       },
       {
         test: /\.node$/,
