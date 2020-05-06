@@ -1,11 +1,11 @@
 <template>
     <div class="MODULE-Home">
-        <home-components ref="components" class="BOX home-components-wrap" @selected="selectedComponent"></home-components>
+        <home-components ref="components" class="BOX home-components-wrap" @selected="selectedComponent" @refresh="refreshDict"></home-components>
         <div class="BOX home-component-frame">
             <div class="report-header">
                 <span class="report-title">{{title}}</span>
                 <span class="report-subtitle">创建于{{createTime}}</span>
-                <xui-toolbar :options="toolbarOptions" style="float:right;"></xui-toolbar>
+                <xui-toolbar v-show="component.reportType" :options="toolbarOptions" style="float:right;"></xui-toolbar>
             </div>
             <div class="BOX home-component-content" style="overflow-y:scroll;">
                 <xui-form v-show="component&&component.reportType==1" ref="form1" :options="formAOptions" @submit="save"></xui-form>
@@ -122,6 +122,7 @@ export default {
             formAOptions: {
                 cols: 3,
                 fillEmpty: "",
+                toolbar: false,
                 fields: [
                     {
                         label: "工作日日期",
@@ -800,6 +801,7 @@ export default {
             formBOptions: {
                 cols: 3,
                 fillEmpty: "",
+                toolbar: false,
                 fields: [
                     {
                         label: "工作日日期",
@@ -2078,7 +2080,7 @@ export default {
                     },
                     {
                         group:
-                            "<span class='sub-group'> - 应力监测预警值：（浅孔14MPa）（深孔16MPa）</span>",
+                            "<span style='display:inline-block;width:45px;'></span><span class='sub-group'> - 应力监测预警值：（浅孔14MPa）（深孔16MPa）</span>",
                         label: "1012001胶带运输巷",
                         name: "fcjc_yljcyjz_1012001jdysx",
                         widget: "input",
@@ -2555,10 +2557,13 @@ export default {
     },
     methods: {
         selectedComponent(component) {
+            component = component || {};
             this.rawModel = JSON.parse(JSON.stringify(component));
             this.component = component;
             this.$nextTick(() => {
-                this.$refs[`form${component.reportType}`].reset(component);
+                if (component.reportType) {
+                    this.$refs[`form${component.reportType}`].reset(component);
+                }
             });
         },
         refreshDict() {
@@ -2626,7 +2631,7 @@ export default {
                 });
         },
         fromReportAToReportB(model) {
-            return {
+            var m = {
                 title: "园子沟煤矿安全生产信息日报表",
                 createTime: Date.now(),
                 updateTime: Date.now(),
@@ -2683,6 +2688,12 @@ export default {
                 scqk3_scyx: model.scqk3_scyx,
                 scqk3_zrr: model.scqk3_zrr
             };
+            this.formBOptions.fields.forEach(f => {
+                if (!m.hasOwnProperty(f.name)) {
+                    m[f.name] = "";
+                }
+            });
+            return m;
         }
     }
 };

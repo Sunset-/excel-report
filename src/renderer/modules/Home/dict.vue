@@ -3,14 +3,14 @@
         <div style="width:800px;height:400px;background:#FFF;">
             <xui-scroll style="height:350px;">
                 <div style="padding:20px;">
-                    <label class="dict-label">值班领导：</label>
+                    <label class="dict-label">人员名称：</label>
                     <div style="display:inline-block;width:500px;vertical-align:top;">
                         <div class="dict-item" v-for="(item,index) in persons" :key="item">
                             <span>{{item}}</span>
                             <i class="xui-icon xui-icon-close" @click="removePerson(index)"></i>
                         </div>
                         <div style="padding:20px 0px;">
-                            <xui-input :options="inputOptions" v-model="personName" v-on:keydown.enter="addPerson()"></xui-input>
+                            <xui-input :options="inputOptions" v-model="personName" placeholder="请输入人员名称" v-on:keydown.enter="addPerson()"></xui-input>
                         </div>
                     </div>
                 </div>

@@ -209,7 +209,7 @@
       STYLE_SUB_TEXT_RIGHT
     );
     ri++;
-    text(sheetData, [ri, 0, 16, 0], `生产情况`, STYLE_CELL_VERT);
+    text(sheetData, [ri, 0, 16, 0], `生  产  情  况`, STYLE_CELL_VERT);
     //产销量
     text(sheetData, [ri, 1, 8, 0], `产销量`, STYLE_CELL);
     text(
@@ -1372,7 +1372,7 @@
     text(
       sheetData,
       [ri + 2, 1, 0, 1],
-      "1012001工作面二号回风巷本煤层钻孔",
+      "1012001工作面                二号回风巷本煤层钻孔",
       STYLE_CELL
     );
     text(
