@@ -2688,6 +2688,30 @@ export default {
                 scqk3_scyx: model.scqk3_scyx,
                 scqk3_zrr: model.scqk3_zrr
             };
+
+            m.total_rxl = (
+                +(m.ym_rxl || 0) +
+                +(m.shm_rxl || 0) +
+                +(m.mjm_rxl || 0) +
+                +(m.zm_rxl || 0) +
+                +(m.sbkm_rxl || 0) +
+                +(m.dk_rxl || 0)
+            ).toFixed(2);
+            m.total_yxl = (
+                +(m.ym_yxl || 0) +
+                +(m.shm_yxl || 0) +
+                +(m.mjm_yxl || 0) +
+                +(m.zm_yxl || 0) +
+                +(m.sbkm_yxl || 0) +
+                +(m.dk_yxl || 0)
+            ).toFixed(2);
+            m.total_kc = (
+                +(m.ym_kc || 0) +
+                +(m.shm_kc || 0) +
+                +(m.mjm_kc || 0) +
+                +(m.zm_sbkm_dk_kc || 0)
+            ).toFixed(2);
+
             this.formBOptions.fields.forEach(f => {
                 if (!m.hasOwnProperty(f.name)) {
                     m[f.name] = "";
